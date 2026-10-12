@@ -1,286 +1,344 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aliaksandr Makaranka · Java Developer & QA Automation</title>
-<meta name="description" content="Java developer and QA automation engineer in Poland. Test automation for websites and online stores, Spring Boot back-ends, web scraping, AI-assisted automation.">
+<title>Aliaksandr Makaranka · Automatyzacja procesów, boty, HR</title>
+<meta name="description" content="Automatyzuję rutynowe procesy w firmach, tworzę boty Telegram, analizuję konkurencję i wspieram rekrutację. Pracuję zdalnie. PL · EN · RU.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #F6F8F7;
-    --ink: #17212E;
-    --slate: #556173;
-    --rule: #D9DFE3;
-    --pass: #23784A;
-    --pass-soft: #E3F1E8;
-    --panel: #FFFFFF;
-    --measure: 44rem;
+    --bg:#FFFFFF; --ink:#1C2230; --mute:#626B7D; --rule:#E4E7EC; --soft:#F3F5F9;
+    --blue:#2F5BEA; --blue-soft:#EAF0FE;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --paper: #121A22; --ink: #E8EDF1; --slate: #9AA6B4; --rule: #2A3540;
-      --pass: #5CC28A; --pass-soft: #183326; --panel: #18222C;
+      --bg:#11151D; --ink:#E9ECF2; --mute:#A0A8B8; --rule:#262D3A; --soft:#181E29;
+      --blue:#7C9BFF; --blue-soft:#1C2540;
     }
   }
-  * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0; background: var(--paper); color: var(--ink);
-    font: 400 1.0625rem/1.6 "IBM Plex Sans", system-ui, sans-serif;
-  }
-  a { color: inherit; text-decoration-color: var(--pass); text-underline-offset: 3px; text-decoration-thickness: 2px; }
-  a:hover { color: var(--pass); }
-  a:focus-visible, button:focus-visible { outline: 3px solid var(--pass); outline-offset: 3px; border-radius: 2px; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:400 1.0625rem/1.6 Manrope, system-ui, sans-serif; }
+  a { color:inherit; }
+  a:focus-visible, button:focus-visible { outline:3px solid var(--blue); outline-offset:3px; border-radius:4px; }
+  .wrap { max-width:64rem; margin:0 auto; padding:0 1.25rem; }
 
-  .wrap { max-width: var(--measure); margin: 0 auto; padding: 0 1.25rem; }
+  .bar { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1.25rem 0; }
+  .bar .name { font-weight:800; text-decoration:none; }
+  .lang { display:inline-flex; border:1px solid var(--rule); border-radius:999px; overflow:hidden; }
+  .lang button { font:inherit; font-size:.875rem; font-weight:500; border:0; background:none; color:var(--mute); padding:.3rem .75rem; cursor:pointer; }
+  .lang button[aria-pressed="true"] { background:var(--ink); color:var(--bg); }
 
-  /* top bar */
-  .bar { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; font-size: .9375rem; }
-  .bar nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
-  .bar nav a { text-decoration: none; color: var(--slate); }
-  .bar nav a:hover { color: var(--ink); }
-  .lang { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
-  .lang button {
-    font: inherit; font-size: .875rem; border: 0; background: none; color: var(--slate);
-    padding: .25rem .7rem; cursor: pointer;
-  }
-  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  header.hero { padding:3rem 0 3.5rem; display:grid; grid-template-columns:1.1fr 1fr; gap:3rem; align-items:center; }
+  h1 { font-size:clamp(2.1rem,5vw,3.1rem); line-height:1.08; font-weight:800; letter-spacing:-.025em; margin:0 0 1rem; }
+  .lead { color:var(--mute); font-size:1.15rem; margin:0 0 1rem; }
+  .remote { display:inline-flex; align-items:center; gap:.5rem; font-size:.95rem; font-weight:500; margin:0 0 1.75rem; }
+  .remote::before { content:""; width:.55rem; height:.55rem; border-radius:50%; background:#2FA866; }
+  .btns { display:flex; gap:.75rem; flex-wrap:wrap; }
+  .btn { display:inline-block; padding:.8rem 1.3rem; border-radius:8px; text-decoration:none; font-weight:700; border:2px solid var(--blue); }
+  .btn.primary { background:var(--blue); color:#fff; }
+  .btn:not(.primary) { color:var(--blue); }
 
-  /* hero */
-  header.hero { padding: 3.5rem 0 2.5rem; }
-  .hero h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); line-height: 1.05; font-weight: 700; letter-spacing: -.02em; margin: 0 0 .75rem; }
-  .hero .role { font-size: 1.25rem; color: var(--slate); margin: 0 0 2rem; max-width: 34rem; }
+  .week { background:var(--soft); border-radius:14px; padding:1.5rem; }
+  .week h2 { font-size:1rem; margin:0 0 1rem; color:var(--mute); font-weight:500; }
+  .task { display:flex; justify-content:space-between; gap:1rem; padding:.55rem 0; border-bottom:1px solid var(--rule); }
+  .task s { text-decoration-color:var(--blue); text-decoration-thickness:2px; color:var(--mute); }
+  .task b { color:var(--blue); font-weight:700; white-space:nowrap; }
+  .sum { margin-top:.6rem; padding-top:.9rem; border-top:2px solid var(--ink); display:flex; justify-content:space-between; gap:1rem; font-weight:800; }
+  .week .note { margin:.75rem 0 0; font-size:.8125rem; color:var(--mute); }
 
-  /* the one bold element: a test run */
-  .run {
-    background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--pass);
-    border-radius: 6px; padding: 1.1rem 1.25rem; font: 400 .9rem/1.75 "IBM Plex Mono", ui-monospace, monospace;
-    overflow-x: auto;
-  }
-  .run .cmd { color: var(--slate); }
-  .run .ok { color: var(--pass); font-weight: 500; }
-  .run .line { white-space: pre; opacity: 0; animation: show .01s forwards; }
-  .run .total { margin-top: .4rem; padding-top: .5rem; border-top: 1px dashed var(--rule); }
-  @keyframes show { to { opacity: 1; } }
-  @media (prefers-reduced-motion: reduce) { .run .line { animation: none; opacity: 1; } }
+  section { padding:3.25rem 0; border-top:1px solid var(--rule); }
+  section > h2 { font-size:1.7rem; letter-spacing:-.015em; margin:0 0 .5rem; }
+  section > .intro { color:var(--mute); margin:0 0 2rem; max-width:40rem; }
 
-  .cta { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 2rem; }
-  .btn {
-    display: inline-block; padding: .7rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: 600;
-    border: 2px solid var(--ink);
-  }
-  .btn.primary { background: var(--ink); color: var(--paper); }
-  .btn.primary:hover { background: var(--pass); border-color: var(--pass); color: #fff; }
-  .btn:not(.primary):hover { border-color: var(--pass); }
+  .services { display:grid; grid-template-columns:repeat(2,1fr); gap:1.75rem 2.5rem; }
+  .services h3 { margin:0 0 .3rem; font-size:1.1rem; }
+  .services p { margin:0; color:var(--mute); }
+  .services .bridge { grid-column:1 / -1; background:var(--blue-soft); border-radius:12px; padding:1.4rem 1.5rem; }
+  .services .bridge p { color:var(--ink); }
 
-  /* sections */
-  section { padding: 2.75rem 0; border-top: 1px solid var(--rule); }
-  h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 1.25rem; font-weight: 600; letter-spacing: -.01em; }
-  h3 { font-size: 1.0625rem; margin: 0; font-weight: 600; }
-  p { margin: 0 0 1rem; }
-  .muted { color: var(--slate); }
+  .packs { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .pack { border:1px solid var(--rule); border-radius:12px; padding:1.5rem; display:flex; flex-direction:column; background:var(--bg); }
+  .pack.main { border:2px solid var(--blue); }
+  .tag { align-self:start; font-size:.8125rem; font-weight:700; color:var(--blue); background:var(--blue-soft); padding:.15rem .6rem; border-radius:999px; margin-bottom:1rem; }
+  .pack h3 { margin:0 0 .25rem; font-size:1.25rem; }
+  .pack .time { color:var(--mute); margin:0 0 1rem; font-size:.95rem; }
+  .pack ul { list-style:none; padding:0; margin:0 0 1.25rem; flex:1; }
+  .pack li { padding:.45rem 0; border-top:1px solid var(--rule); }
+  .pack .res { margin:0; font-weight:700; }
+  .pack .res span { display:block; font-weight:400; color:var(--mute); font-size:.9375rem; }
+  .price { margin:1.25rem 0 0; color:var(--mute); font-size:.95rem; }
 
-  .services { display: grid; gap: 1.25rem; grid-template-columns: 1fr 1fr; }
-  .services div p { margin: .25rem 0 0; color: var(--slate); font-size: 1rem; }
+  .about { display:grid; grid-template-columns:1fr 2fr; gap:2rem; }
+  .about h2 { margin:0; font-size:1.7rem; letter-spacing:-.015em; }
+  .about p { margin:0 0 1rem; max-width:40rem; }
+  .facts { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.25rem; padding:0; list-style:none; }
+  .facts li { font-size:.9rem; padding:.3rem .75rem; border:1px solid var(--rule); border-radius:999px; }
 
-  .projects { list-style: none; margin: 0; padding: 0; }
-  .projects li { padding: 1rem 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 1fr auto; gap: .25rem 1rem; }
-  .projects li:last-child { border-bottom: 0; }
-  .projects h3 a { text-decoration: none; }
-  .projects h3 a:hover { text-decoration: underline; }
-  .projects p { margin: 0; grid-column: 1 / -1; color: var(--slate); font-size: 1rem; }
-  .projects .stack { grid-column: 1 / -1; font-size: .875rem; color: var(--slate); }
-  .badge {
-    align-self: start; font-size: .8125rem; font-weight: 500; color: var(--pass); background: var(--pass-soft);
-    padding: .1rem .55rem; border-radius: 999px; white-space: nowrap;
-  }
+  .cta { background:var(--ink); color:var(--bg); border-radius:14px; padding:2.25rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; margin:0 0 2rem; }
+  .cta h2 { margin:0; font-size:1.5rem; }
+  .cta p { margin:.35rem 0 0; opacity:.75; }
+  .cta .links { display:flex; gap:.75rem; flex-wrap:wrap; }
+  .cta a { background:var(--bg); color:var(--ink); padding:.75rem 1.2rem; border-radius:8px; text-decoration:none; font-weight:700; }
+  footer { padding:0 0 3rem; color:var(--mute); font-size:.9rem; }
 
-  .timeline { margin: 0; padding: 0; list-style: none; }
-  .timeline li { display: grid; grid-template-columns: 8rem 1fr; gap: 1rem; padding: .6rem 0; }
-  .timeline .when { color: var(--slate); font-size: .9375rem; }
-  .timeline p { margin: .2rem 0 0; color: var(--slate); font-size: 1rem; }
-
-  .skills { display: grid; grid-template-columns: 9rem 1fr; gap: .5rem 1rem; margin: 0; }
-  .skills dt { color: var(--slate); }
-  .skills dd { margin: 0; }
-
-  .contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .4rem; }
-  footer { padding: 2rem 0 3rem; color: var(--slate); font-size: .875rem; border-top: 1px solid var(--rule); }
-
-  [data-lang-pl] { display: none; }
-  html[lang="pl"] [data-lang-en] { display: none; }
-  html[lang="pl"] [data-lang-pl] { display: revert; }
-
-  @media (max-width: 600px) {
-    .bar nav { display: none; }
-    header.hero { padding-top: 2rem; }
-    .services { grid-template-columns: 1fr; }
-    .timeline li, .skills { grid-template-columns: 1fr; }
-    .timeline li { gap: 0; }
-    .skills dt { margin-top: .5rem; }
-    .run { font-size: .8rem; }
-  }
-  @media print {
-    .bar, .cta, .run { display: none; }
-    body { background: #fff; }
-    section { padding: 1.25rem 0; }
+  @media (max-width:820px) {
+    header.hero, .about { grid-template-columns:1fr; }
+    .services, .packs { grid-template-columns:1fr; }
+    header.hero { padding-top:1.5rem; gap:2rem; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="bar">
-    <nav aria-label="Sections">
-      <a href="#services"><span data-lang-en>Services</span><span data-lang-pl>Usługi</span></a>
-      <a href="#projects"><span data-lang-en>Projects</span><span data-lang-pl>Projekty</span></a>
-      <a href="#experience"><span data-lang-en>Experience</span><span data-lang-pl>Doświadczenie</span></a>
-      <a href="#contact"><span data-lang-en>Contact</span><span data-lang-pl>Kontakt</span></a>
-    </nav>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-set-lang="pl" aria-pressed="false">PL</button>
+    <a class="name" href="#">Aliaksandr Makaranka</a>
+    <div class="lang" role="group" aria-label="Język / Language / Язык">
+      <button type="button" data-set-lang="pl" aria-pressed="true">PL</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-set-lang="ru" aria-pressed="false">RU</button>
     </div>
   </div>
 
   <header class="hero">
-    <h1>Aliaksandr Makaranka</h1>
-    <p class="role">
-      <span data-lang-en>Java developer and QA automation engineer in Poland. I make sure websites and online stores keep working, and I automate the boring parts of the job.</span>
-      <span data-lang-pl>Programista Java i inżynier automatyzacji testów w Polsce. Dbam o to, żeby strony i sklepy internetowe działały bez błędów, i automatyzuję rutynowe zadania.</span>
-    </p>
-
-    <div class="run" aria-label="Automated tests in my projects">
-      <div class="line cmd" style="animation-delay:.1s">$ count-tests ~/portfolio</div>
-      <div class="line" style="animation-delay:.45s">demoqa        UI tests        <span class="ok">40</span></div>
-      <div class="line" style="animation-delay:.8s">hr_project    unit tests      <span class="ok">21</span></div>
-      <div class="line" style="animation-delay:1.15s">herokuapp     UI tests        <span class="ok">7</span></div>
-      <div class="line" style="animation-delay:1.5s">task-api      API tests       <span class="ok">7</span></div>
-      <div class="line total" style="animation-delay:1.9s"><span data-lang-en>75 automated tests across 4 projects.</span><span data-lang-pl>75 testów automatycznych w 4 projektach.</span></div>
+    <div>
+      <h1 data-i="h1"></h1>
+      <p class="lead" data-i="lead"></p>
+      <p class="remote" data-i="remote"></p>
+      <div class="btns">
+        <a class="btn primary" href="#contact" data-i="cta_talk"></a>
+        <a class="btn" href="#packs" data-i="cta_offer"></a>
+      </div>
     </div>
-
-    <div class="cta">
-      <a class="btn primary" href="#contact"><span data-lang-en>Get in touch</span><span data-lang-pl>Skontaktuj się</span></a>
-      <a class="btn" href="https://github.com/AliaksandrMakaranka"><span data-lang-en>See my GitHub</span><span data-lang-pl>Zobacz GitHub</span></a>
+    <div class="week">
+      <h2 data-i="week_title"></h2>
+      <div class="task"><s data-i="t1"></s><b>4 h → 0</b></div>
+      <div class="task"><s data-i="t2"></s><b>3 h → 5 min</b></div>
+      <div class="task"><s data-i="t3"></s><b>5 h → 1 h</b></div>
+      <div class="task"><s data-i="t4"></s><b>3 h → 20 min</b></div>
+      <div class="task"><s data-i="t5"></s><b>2 h → 0</b></div>
+      <div class="sum"><span data-i="sum"></span><span data-i="sum_v"></span></div>
+      <p class="note" data-i="week_note"></p>
     </div>
   </header>
 
   <section id="services">
-    <h2><span data-lang-en>What I can do for your business</span><span data-lang-pl>W czym mogę pomóc Twojej firmie</span></h2>
+    <h2 data-i="s_title"></h2>
+    <p class="intro" data-i="s_intro"></p>
     <div class="services">
-      <div>
-        <h3><span data-lang-en>Test automation for your website</span><span data-lang-pl>Automatyczne testy strony</span></h3>
-        <p><span data-lang-en>Daily automated checks of the cart, checkout, forms and login, with a clear report when something breaks.</span><span data-lang-pl>Codzienne automatyczne sprawdzanie koszyka, płatności, formularzy i logowania, z czytelnym raportem, gdy coś przestanie działać.</span></p>
-      </div>
-      <div>
-        <h3><span data-lang-en>Back-end development</span><span data-lang-pl>Back-end</span></h3>
-        <p><span data-lang-en>REST APIs and integrations in Java and Spring Boot, with databases and Docker.</span><span data-lang-pl>REST API i integracje w Javie i Spring Boot, z bazami danych i Dockerem.</span></p>
-      </div>
-      <div>
-        <h3><span data-lang-en>Price and data monitoring</span><span data-lang-pl>Monitoring cen i danych</span></h3>
-        <p><span data-lang-en>Scripts that collect prices, offers or news from websites and save them to a spreadsheet.</span><span data-lang-pl>Skrypty, które zbierają ceny, oferty lub wiadomości ze stron i zapisują je do arkusza.</span></p>
-      </div>
-      <div>
-        <h3><span data-lang-en>AI-assisted automation</span><span data-lang-pl>Automatyzacja z AI</span></h3>
-        <p><span data-lang-en>Product descriptions, reports and data processing done with AI tools, checked by a person.</span><span data-lang-pl>Opisy produktów, raporty i przetwarzanie danych z pomocą AI, sprawdzane przez człowieka.</span></p>
-      </div>
+      <div><h3 data-i="s1"></h3><p data-i="s1d"></p></div>
+      <div><h3 data-i="s2"></h3><p data-i="s2d"></p></div>
+      <div><h3 data-i="s3"></h3><p data-i="s3d"></p></div>
+      <div><h3 data-i="s4"></h3><p data-i="s4d"></p></div>
+      <div><h3 data-i="s5"></h3><p data-i="s5d"></p></div>
+      <div><h3 data-i="s6"></h3><p data-i="s6d"></p></div>
+      <div><h3 data-i="s7"></h3><p data-i="s7d"></p></div>
+      <div><h3 data-i="s8"></h3><p data-i="s8d"></p></div>
+      <div class="bridge"><h3 data-i="s9"></h3><p data-i="s9d"></p></div>
     </div>
   </section>
 
-  <section id="projects">
-    <h2><span data-lang-en>Projects</span><span data-lang-pl>Projekty</span></h2>
-    <ul class="projects">
-      <li>
-        <h3><a href="https://github.com/AliaksandrMakaranka/demoqa">demoqa</a></h3>
-        <span class="badge">40 tests</span>
-        <p><span data-lang-en>UI test suite for a practice web app: forms, tables, alerts, frames, file upload.</span><span data-lang-pl>Testy UI aplikacji webowej: formularze, tabele, alerty, ramki, upload plików.</span></p>
-        <span class="stack">Java, Selenium, JUnit 5, Allure, Page Object</span>
-      </li>
-      <li>
-        <h3><a href="https://github.com/AliaksandrMakaranka/hr_project">hr_project</a></h3>
-        <span class="badge">21 tests</span>
-        <p><span data-lang-en>Front-end of a recruitment agency website with job filters by city and category.</span><span data-lang-pl>Front-end strony agencji rekrutacyjnej z filtrami ofert według miast i kategorii.</span></p>
-        <span class="stack">React, TypeScript, Vite, Zustand, Vitest</span>
-      </li>
-      <li>
-        <h3><a href="https://github.com/AliaksandrMakaranka/task-api">task-api</a></h3>
-        <span class="badge">7 tests</span>
-        <p><span data-lang-en>REST API for a Kanban task tracker, runs locally with Docker.</span><span data-lang-pl>REST API do tablicy zadań Kanban, uruchamiane lokalnie przez Docker.</span></p>
-        <span class="stack">Spring Boot, PostgreSQL, JPA, MockMvc, Docker</span>
-      </li>
-      <li>
-        <h3><a href="https://github.com/AliaksandrMakaranka/herokuapp">herokuapp</a></h3>
-        <span class="badge">7 tests</span>
-        <p><span data-lang-en>UI tests for tricky elements: login, drag and drop, nested frames.</span><span data-lang-pl>Testy UI trudnych elementów: logowanie, drag and drop, zagnieżdżone ramki.</span></p>
-        <span class="stack">Java, Selenium, JUnit 5</span>
-      </li>
-      <li>
-        <h3><a href="https://github.com/AliaksandrMakaranka/Parser">Parser</a></h3>
-        <span class="badge">scraper</span>
-        <p><span data-lang-en>Web scraper that collects headlines and links and saves them to a file.</span><span data-lang-pl>Parser stron, który zbiera nagłówki i linki i zapisuje je do pliku.</span></p>
-        <span class="stack">Java, Jsoup</span>
-      </li>
-    </ul>
+  <section id="packs">
+    <h2 data-i="p_title"></h2>
+    <p class="intro" data-i="p_intro"></p>
+    <div class="packs">
+      <div class="pack">
+        <span class="tag" data-i="p1_tag"></span>
+        <h3 data-i="p1"></h3>
+        <p class="time" data-i="p1_time"></p>
+        <ul><li data-i="p1_a"></li><li data-i="p1_b"></li><li data-i="p1_c"></li></ul>
+        <p class="res"><span data-i="res"></span><span data-i="p1_res"></span></p>
+      </div>
+      <div class="pack main">
+        <span class="tag" data-i="p2_tag"></span>
+        <h3 data-i="p2"></h3>
+        <p class="time" data-i="p2_time"></p>
+        <ul><li data-i="p2_a"></li><li data-i="p2_b"></li><li data-i="p2_c"></li></ul>
+        <p class="res"><span data-i="res"></span><span data-i="p2_res"></span></p>
+      </div>
+      <div class="pack">
+        <span class="tag" data-i="p3_tag"></span>
+        <h3 data-i="p3"></h3>
+        <p class="time" data-i="p3_time"></p>
+        <ul><li data-i="p3_a"></li><li data-i="p3_b"></li><li data-i="p3_c"></li></ul>
+        <p class="res"><span data-i="res"></span><span data-i="p3_res"></span></p>
+      </div>
+    </div>
+    <p class="price" data-i="price"></p>
   </section>
 
-  <section id="experience">
-    <h2><span data-lang-en>Experience and training</span><span data-lang-pl>Doświadczenie i szkolenia</span></h2>
-    <ul class="timeline">
-      <li>
-        <span class="when">2024–2025</span>
-        <div>
-          <h3><span data-lang-en>JenkinsQA team project</span><span data-lang-pl>Projekt zespołowy JenkinsQA</span></h3>
-          <p><span data-lang-en>Test automation for Jenkins in a large team: code review, Git workflow, merged pull requests in Java and Python.</span><span data-lang-pl>Automatyzacja testów Jenkinsa w dużym zespole: code review, praca z Gitem, zaakceptowane pull requesty w Javie i Pythonie.</span></p>
-        </div>
-      </li>
-      <li>
-        <span class="when">2024</span>
-        <div>
-          <h3><span data-lang-en>Java bootcamp</span><span data-lang-pl>Bootcamp Java</span></h3>
-          <p><span data-lang-en>Core Java, OOP, collections, testing.</span><span data-lang-pl>Java, programowanie obiektowe, kolekcje, testowanie.</span></p>
-        </div>
-      </li>
-    </ul>
+  <section class="about" id="about">
+    <h2 data-i="a_title"></h2>
+    <div>
+      <p data-i="a1"></p>
+      <p data-i="a2"></p>
+      <ul class="facts">
+        <li data-i="f1"></li><li data-i="f2"></li><li data-i="f3"></li><li data-i="f4"></li>
+      </ul>
+    </div>
   </section>
 
-  <section id="skills">
-    <h2><span data-lang-en>Skills</span><span data-lang-pl>Umiejętności</span></h2>
-    <dl class="skills">
-      <dt>Back-end</dt><dd>Java, Spring Boot, Axon Framework, SQL, PostgreSQL</dd>
-      <dt><span data-lang-en>Testing</span><span data-lang-pl>Testowanie</span></dt><dd>Selenium, JUnit 5, TestNG, REST Assured, Allure</dd>
-      <dt><span data-lang-en>Tools</span><span data-lang-pl>Narzędzia</span></dt><dd>Docker, Linux, Git, Maven, Gradle</dd>
-      <dt><span data-lang-en>Also</span><span data-lang-pl>Również</span></dt><dd>Python, Rust, TypeScript, React</dd>
-      <dt><span data-lang-en>Languages</span><span data-lang-pl>Języki</span></dt><dd><span data-lang-en>Russian, Polish, English</span><span data-lang-pl>rosyjski, polski, angielski</span></dd>
-    </dl>
-  </section>
-
-  <section id="contact">
-    <h2><span data-lang-en>Contact</span><span data-lang-pl>Kontakt</span></h2>
-    <p class="muted"><span data-lang-en>Open to projects and cooperation in Poland and remotely.</span><span data-lang-pl>Otwarty na projekty i współpracę w Polsce oraz zdalnie.</span></p>
-    <ul class="contact-list">
-      <li><a href="https://www.linkedin.com/in/aliaksandr-makaranka">LinkedIn</a></li>
-      <li><a href="https://github.com/AliaksandrMakaranka">GitHub</a></li>
-    </ul>
-  </section>
-
+  <div class="cta" id="contact">
+    <div><h2 data-i="c_title"></h2><p data-i="c_sub"></p></div>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/aliaksandr-makaranka">LinkedIn</a>
+      <a href="https://github.com/AliaksandrMakaranka">GitHub</a>
+    </div>
+  </div>
   <footer>© 2026 Aliaksandr Makaranka</footer>
 </div>
+
 <script>
-  (function () {
-    var buttons = document.querySelectorAll('[data-set-lang]');
-    function setLang(lang) {
-      document.documentElement.lang = lang;
-      buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)); });
-      try { localStorage.setItem('lang', lang); } catch (e) {}
-    }
-    buttons.forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.setLang); }); });
-    var saved = null;
-    try { saved = localStorage.getItem('lang'); } catch (e) {}
-    if (saved) setLang(saved);
-    else if ((navigator.language || '').toLowerCase().startsWith('pl')) setLang('pl');
-  })();
+var T = {
+pl: {
+  title:"Aliaksandr Makaranka · Automatyzacja procesów, boty, HR",
+  h1:"Oddaj rutynę automatom. Twój zespół zajmie się klientami.",
+  lead:"Jestem menedżerem, wcześniej programistą i inżynierem automatyzacji testów. Automatyzuję powtarzalne procesy w firmach, tworzę boty i wspieram rekrutację.",
+  remote:"Pracuję wyłącznie zdalnie, z firmami z całej Polski i Europy",
+  cta_talk:"Umów krótką rozmowę", cta_offer:"Zobacz ofertę",
+  week_title:"Przykładowy tydzień w biurze",
+  t1:"Przepisywanie zamówień do Excela", t2:"Cotygodniowy raport sprzedaży", t3:"Przeglądanie 80 CV",
+  t4:"Sprawdzanie cen konkurencji", t5:"Odpowiedzi na te same pytania klientów",
+  sum:"Odzyskany czas", sum_v:"~15 h tygodniowo",
+  week_note:"Przykładowe wartości. Realny wynik zależy od procesów w Twojej firmie.",
+  s_title:"Czym się zajmuję",
+  s_intro:"Zaczynam od problemu, nie od technologii. Wybieram narzędzie, które da efekt najszybciej.",
+  s1:"Automatyzacja procesów", s1d:"Raporty, zestawienia, przenoszenie danych między Excelem, Google Sheets, CRM i pocztą. Robi się samo, codziennie.",
+  s2:"Boty Telegram", s2d:"Przyjmowanie zamówień i zgłoszeń, powiadomienia dla zespołu, odpowiedzi na częste pytania klientów.",
+  s3:"Analiza konkurencji", s3d:"Monitoring cen, ofert i nowości u konkurentów. Zestawienie w arkuszu lub raport co tydzień.",
+  s4:"Wdrażanie nowych funkcji", s4d:"Nowe możliwości na stronie, w sklepie lub w systemie firmy: formularze, integracje, płatności.",
+  s5:"Testy i kontrola jakości", s5d:"Automatyczne sprawdzanie, czy działa koszyk, formularze i logowanie. Raport, gdy coś przestanie działać.",
+  s6:"AI w firmie", s6d:"Opisy produktów, odpowiedzi na maile, analiza opinii klientów. AI robi szkic, człowiek zatwierdza.",
+  s7:"Wsparcie HR i rekrutacji", s7d:"Ogłoszenia, selekcja CV, umawianie rozmów, plan onboardingu nowych pracowników.",
+  s8:"Porządek w procesach", s8d:"Opis, kto co robi i w jakiej kolejności. Instrukcje dla zespołu, mniej pytań i błędów.",
+  s9:"Most między Polską a zespołami z Ukrainy, Białorusi i innych krajów", s9d:"Mówię po polsku, rosyjsku i angielsku. Pomagam polskim firmom współpracować z pracownikami i wykonawcami z Ukrainy i Białorusi: komunikacja, wdrożenie do pracy, instrukcje w zrozumiałym języku, koordynacja zadań.",
+  p_title:"Jak możemy zacząć", p_intro:"Trzy formy współpracy. Najczęściej zaczynamy od przeglądu, żeby nie płacić za to, czego nie potrzebujesz.",
+  p1_tag:"Na start", p1:"Przegląd procesów", p1_time:"1–2 rozmowy online",
+  p1_a:"Rozmowa z Tobą i zespołem", p1_b:"Lista zadań, które da się zautomatyzować", p1_c:"Szacunek oszczędności czasu",
+  p1_res:"Krótki raport z priorytetami",
+  p2_tag:"Najczęściej wybierane", p2:"Automatyzacja lub bot", p2_time:"2–4 tygodnie",
+  p2_a:"Wybieramy proces, który zabiera najwięcej czasu", p2_b:"Wdrażam rozwiązanie: raport, integrację lub bota", p2_c:"Instrukcja dla zespołu i miesiąc wsparcia",
+  p2_res:"Proces działa sam, zespół odzyskuje godziny",
+  p3_tag:"HR i zespół", p3:"Rekrutacja i wdrożenie", p3_time:"od 2 tygodni",
+  p3_a:"Szablony ogłoszeń i kryteria selekcji", p3_b:"Automatyczne umawianie rozmów", p3_c:"Onboarding, także dla osób mówiących po rosyjsku i ukraińsku",
+  p3_res:"Szybsze zatrudnianie, mniej chaosu",
+  res:"Wynik",
+  price:"Cenę ustalam indywidualnie, po pierwszej rozmowie. Pierwsza rozmowa jest bezpłatna.",
+  a_title:"Dlaczego ja",
+  a1:"Znam obie strony: przez lata pisałem kod w Javie i automatyczne testy, a dziś zarządzam ludźmi i procesami, w tym rekrutacją. Rozumiem, co warto zautomatyzować, a co lepiej zostawić człowiekowi.",
+  a2:"Proponuję jedno konkretne usprawnienie, które da efekt w ciągu tygodni, nie miesięcy. Pracuję zdalnie, więc spotykamy się online w dogodnym czasie.",
+  f1:"Były programista Java", f2:"Automatyzacja testów", f3:"Zarządzanie i HR", f4:"PL · EN · RU",
+  c_title:"Masz proces, który zjada godziny?", c_sub:"Napisz, porozmawiamy online. Odpowiadam po polsku, angielsku i rosyjsku."
+},
+en: {
+  title:"Aliaksandr Makaranka · Process automation, bots, HR",
+  h1:"Hand the routine to automation. Your team handles the clients.",
+  lead:"I'm a manager and former software developer and QA automation engineer. I automate repetitive business processes, build bots and support recruitment.",
+  remote:"Remote only, working with companies across Poland and Europe",
+  cta_talk:"Book a short call", cta_offer:"See the offer",
+  week_title:"A typical office week",
+  t1:"Copying orders into Excel", t2:"Weekly sales report", t3:"Screening 80 CVs",
+  t4:"Checking competitor prices", t5:"Answering the same client questions",
+  sum:"Time saved", sum_v:"~15 h a week",
+  week_note:"Example values. Real results depend on your company's processes.",
+  s_title:"What I do",
+  s_intro:"I start from the problem, not the technology, and pick the tool that gives results fastest.",
+  s1:"Process automation", s1d:"Reports, summaries and data transfer between Excel, Google Sheets, CRM and e-mail. Done automatically, every day.",
+  s2:"Telegram bots", s2d:"Taking orders and requests, team notifications, answers to frequent customer questions.",
+  s3:"Competitor analysis", s3d:"Tracking competitors' prices, offers and new products. A spreadsheet or a weekly report.",
+  s4:"New features", s4d:"New functions on your website, online store or internal system: forms, integrations, payments.",
+  s5:"Testing and quality control", s5d:"Automated checks that the cart, forms and login work, with a report when something breaks.",
+  s6:"AI for your business", s6d:"Product descriptions, e-mail replies, customer review analysis. AI drafts, a person approves.",
+  s7:"HR and recruitment support", s7d:"Job ads, CV screening, interview scheduling, onboarding plans for new hires.",
+  s8:"Process clean-up", s8d:"A clear description of who does what and when. Team instructions, fewer questions and mistakes.",
+  s9:"A bridge between Polish companies and teams from Ukraine, Belarus and beyond", s9d:"I speak Polish, Russian and English. I help Polish companies work with employees and contractors from Ukraine and Belarus: communication, onboarding, instructions people understand, task coordination.",
+  p_title:"How we can start", p_intro:"Three ways to work together. Most clients start with a review, so you don't pay for what you don't need.",
+  p1_tag:"To start", p1:"Process review", p1_time:"1–2 online calls",
+  p1_a:"A talk with you and your team", p1_b:"A list of tasks that can be automated", p1_c:"An estimate of time saved",
+  p1_res:"A short report with priorities",
+  p2_tag:"Most popular", p2:"Automation or a bot", p2_time:"2–4 weeks",
+  p2_a:"We pick the process that takes the most time", p2_b:"I build the solution: a report, an integration or a bot", p2_c:"Team instructions and one month of support",
+  p2_res:"The process runs by itself, the team gets hours back",
+  p3_tag:"HR and team", p3:"Recruitment and onboarding", p3_time:"from 2 weeks",
+  p3_a:"Job ad templates and screening criteria", p3_b:"Automated interview scheduling", p3_c:"Onboarding, including Russian and Ukrainian speakers",
+  p3_res:"Faster hiring, less chaos",
+  res:"Result",
+  price:"Pricing is individual and agreed after the first call. The first call is free.",
+  a_title:"Why me",
+  a1:"I know both sides: for years I wrote Java code and automated tests, and today I manage people and processes, including recruitment. I know what is worth automating and what is better left to a person.",
+  a2:"I propose one concrete improvement that pays off in weeks, not months. I work remotely, so we meet online at a time that suits you.",
+  f1:"Former Java developer", f2:"Test automation", f3:"Management and HR", f4:"PL · EN · RU",
+  c_title:"Got a process that eats hours?", c_sub:"Write to me and we'll talk online. I reply in Polish, English and Russian."
+},
+ru: {
+  title:"Aliaksandr Makaranka · Автоматизация процессов, боты, HR",
+  h1:"Отдайте рутину автоматике. Ваша команда займётся клиентами.",
+  lead:"Я менеджер, в прошлом программист и инженер по автоматизации тестирования. Автоматизирую повторяющиеся процессы в компаниях, делаю ботов и помогаю с подбором персонала.",
+  remote:"Работаю только удалённо, с компаниями по всей Польше и Европе",
+  cta_talk:"Договориться о звонке", cta_offer:"Смотреть предложение",
+  week_title:"Обычная неделя в офисе",
+  t1:"Перенос заказов в Excel", t2:"Еженедельный отчёт о продажах", t3:"Разбор 80 резюме",
+  t4:"Проверка цен конкурентов", t5:"Ответы на одни и те же вопросы клиентов",
+  sum:"Сэкономлено", sum_v:"~15 ч в неделю",
+  week_note:"Цифры для примера. Реальный результат зависит от процессов в вашей компании.",
+  s_title:"Чем я занимаюсь",
+  s_intro:"Начинаю с проблемы, а не с технологии, и выбираю инструмент, который даст результат быстрее всего.",
+  s1:"Автоматизация процессов", s1d:"Отчёты, сводки, перенос данных между Excel, Google Sheets, CRM и почтой. Делается само, каждый день.",
+  s2:"Telegram-боты", s2d:"Приём заказов и заявок, уведомления для команды, ответы на частые вопросы клиентов.",
+  s3:"Анализ конкурентов", s3d:"Отслеживание цен, предложений и новинок у конкурентов. Таблица или отчёт раз в неделю.",
+  s4:"Внедрение новых функций", s4d:"Новые возможности на сайте, в интернет-магазине или в системе компании: формы, интеграции, оплата.",
+  s5:"Тестирование и контроль качества", s5d:"Автоматическая проверка корзины, форм и входа на сайт. Отчёт, если что-то сломалось.",
+  s6:"AI для бизнеса", s6d:"Описания товаров, ответы на письма, анализ отзывов. AI делает черновик, человек утверждает.",
+  s7:"HR и подбор персонала", s7d:"Вакансии, отбор резюме, назначение собеседований, план адаптации новых сотрудников.",
+  s8:"Порядок в процессах", s8d:"Описание, кто что делает и в каком порядке. Инструкции для команды, меньше вопросов и ошибок.",
+  s9:"Мост между Польшей и командами из Украины, Беларуси и других стран", s9d:"Говорю по-польски, по-русски и по-английски. Помогаю польским компаниям работать с сотрудниками и подрядчиками из Украины и Беларуси: коммуникация, вхождение в работу, понятные инструкции, координация задач.",
+  p_title:"С чего начать", p_intro:"Три формата сотрудничества. Чаще всего начинаем с обзора, чтобы вы не платили за ненужное.",
+  p1_tag:"Для старта", p1:"Обзор процессов", p1_time:"1–2 онлайн-встречи",
+  p1_a:"Разговор с вами и командой", p1_b:"Список задач, которые можно автоматизировать", p1_c:"Оценка экономии времени",
+  p1_res:"Короткий отчёт с приоритетами",
+  p2_tag:"Чаще всего выбирают", p2:"Автоматизация или бот", p2_time:"2–4 недели",
+  p2_a:"Выбираем процесс, который отнимает больше всего времени", p2_b:"Внедряю решение: отчёт, интеграцию или бота", p2_c:"Инструкция для команды и месяц поддержки",
+  p2_res:"Процесс работает сам, команда получает часы обратно",
+  p3_tag:"HR и команда", p3:"Подбор и адаптация", p3_time:"от 2 недель",
+  p3_a:"Шаблоны вакансий и критерии отбора", p3_b:"Автоматическое назначение собеседований", p3_c:"Адаптация, в том числе для русско- и украиноязычных сотрудников",
+  p3_res:"Быстрее нанимать, меньше хаоса",
+  res:"Результат",
+  price:"Стоимость обсуждается индивидуально после первого разговора. Первый разговор бесплатный.",
+  a_title:"Почему я",
+  a1:"Я знаю обе стороны: годами писал код на Java и автотесты, а сейчас управляю людьми и процессами, включая подбор персонала. Понимаю, что стоит автоматизировать, а что лучше оставить человеку.",
+  a2:"Предлагаю одно конкретное улучшение, которое окупится за недели, а не месяцы. Работаю удалённо, встречаемся онлайн в удобное для вас время.",
+  f1:"Бывший Java-разработчик", f2:"Автоматизация тестирования", f3:"Менеджмент и HR", f4:"PL · EN · RU",
+  c_title:"Есть процесс, который съедает часы?", c_sub:"Напишите мне, обсудим онлайн. Отвечаю на польском, английском и русском."
+}
+};
+(function () {
+  var buttons = document.querySelectorAll('[data-set-lang]');
+  function setLang(lang, remember) {
+    if (!T[lang]) lang = 'pl';
+    var d = T[lang];
+    document.documentElement.lang = lang;
+    document.title = d.title;
+    document.querySelectorAll('[data-i]').forEach(function (el) {
+      var v = d[el.getAttribute('data-i')];
+      if (v !== undefined) el.textContent = v;
+    });
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)); });
+    if (remember) { try { localStorage.setItem('lang', lang); } catch (e) {} }
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      setLang(b.dataset.setLang, true);
+      try { history.replaceState(null, '', '?lang=' + b.dataset.setLang + location.hash); } catch (e) {}
+    });
+  });
+  var fromUrl = new URLSearchParams(location.search).get('lang');
+  var saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
+  var nav = (navigator.language || 'pl').slice(0, 2).toLowerCase();
+  var guess = nav === 'pl' ? 'pl' : (['ru', 'uk', 'be'].indexOf(nav) >= 0 ? 'ru' : (nav === 'en' ? 'en' : 'pl'));
+  setLang(fromUrl || saved || guess, false);
+})();
 </script>
 </body>
 </html>
