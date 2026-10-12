@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aliaksandr Makaranka · Java Developer & QA Automation</title>
+<meta name="description" content="Java developer and QA automation engineer in Poland. Test automation for websites and online stores, Spring Boot back-ends, web scraping, AI-assisted automation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F8F7;
+    --ink: #17212E;
+    --slate: #556173;
+    --rule: #D9DFE3;
+    --pass: #23784A;
+    --pass-soft: #E3F1E8;
+    --panel: #FFFFFF;
+    --measure: 44rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #121A22; --ink: #E8EDF1; --slate: #9AA6B4; --rule: #2A3540;
+      --pass: #5CC28A; --pass-soft: #183326; --panel: #18222C;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 400 1.0625rem/1.6 "IBM Plex Sans", system-ui, sans-serif;
+  }
+  a { color: inherit; text-decoration-color: var(--pass); text-underline-offset: 3px; text-decoration-thickness: 2px; }
+  a:hover { color: var(--pass); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--pass); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: var(--measure); margin: 0 auto; padding: 0 1.25rem; }
+
+  /* top bar */
+  .bar { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; font-size: .9375rem; }
+  .bar nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+  .bar nav a { text-decoration: none; color: var(--slate); }
+  .bar nav a:hover { color: var(--ink); }
+  .lang { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+  .lang button {
+    font: inherit; font-size: .875rem; border: 0; background: none; color: var(--slate);
+    padding: .25rem .7rem; cursor: pointer;
+  }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+  /* hero */
+  header.hero { padding: 3.5rem 0 2.5rem; }
+  .hero h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); line-height: 1.05; font-weight: 700; letter-spacing: -.02em; margin: 0 0 .75rem; }
+  .hero .role { font-size: 1.25rem; color: var(--slate); margin: 0 0 2rem; max-width: 34rem; }
+
+  /* the one bold element: a test run */
+  .run {
+    background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--pass);
+    border-radius: 6px; padding: 1.1rem 1.25rem; font: 400 .9rem/1.75 "IBM Plex Mono", ui-monospace, monospace;
+    overflow-x: auto;
+  }
+  .run .cmd { color: var(--slate); }
+  .run .ok { color: var(--pass); font-weight: 500; }
+  .run .line { white-space: pre; opacity: 0; animation: show .01s forwards; }
+  .run .total { margin-top: .4rem; padding-top: .5rem; border-top: 1px dashed var(--rule); }
+  @keyframes show { to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .run .line { animation: none; opacity: 1; } }
+
+  .cta { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 2rem; }
+  .btn {
+    display: inline-block; padding: .7rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: 600;
+    border: 2px solid var(--ink);
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.primary:hover { background: var(--pass); border-color: var(--pass); color: #fff; }
+  .btn:not(.primary):hover { border-color: var(--pass); }
+
+  /* sections */
+  section { padding: 2.75rem 0; border-top: 1px solid var(--rule); }
+  h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 1.25rem; font-weight: 600; letter-spacing: -.01em; }
+  h3 { font-size: 1.0625rem; margin: 0; font-weight: 600; }
+  p { margin: 0 0 1rem; }
+  .muted { color: var(--slate); }
+
+  .services { display: grid; gap: 1.25rem; grid-template-columns: 1fr 1fr; }
+  .services div p { margin: .25rem 0 0; color: var(--slate); font-size: 1rem; }
+
+  .projects { list-style: none; margin: 0; padding: 0; }
+  .projects li { padding: 1rem 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 1fr auto; gap: .25rem 1rem; }
+  .projects li:last-child { border-bottom: 0; }
+  .projects h3 a { text-decoration: none; }
+  .projects h3 a:hover { text-decoration: underline; }
+  .projects p { margin: 0; grid-column: 1 / -1; color: var(--slate); font-size: 1rem; }
+  .projects .stack { grid-column: 1 / -1; font-size: .875rem; color: var(--slate); }
+  .badge {
+    align-self: start; font-size: .8125rem; font-weight: 500; color: var(--pass); background: var(--pass-soft);
+    padding: .1rem .55rem; border-radius: 999px; white-space: nowrap;
+  }
+
+  .timeline { margin: 0; padding: 0; list-style: none; }
+  .timeline li { display: grid; grid-template-columns: 8rem 1fr; gap: 1rem; padding: .6rem 0; }
+  .timeline .when { color: var(--slate); font-size: .9375rem; }
+  .timeline p { margin: .2rem 0 0; color: var(--slate); font-size: 1rem; }
+
+  .skills { display: grid; grid-template-columns: 9rem 1fr; gap: .5rem 1rem; margin: 0; }
+  .skills dt { color: var(--slate); }
+  .skills dd { margin: 0; }
+
+  .contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .4rem; }
+  footer { padding: 2rem 0 3rem; color: var(--slate); font-size: .875rem; border-top: 1px solid var(--rule); }
+
+  [data-lang-pl] { display: none; }
+  html[lang="pl"] [data-lang-en] { display: none; }
+  html[lang="pl"] [data-lang-pl] { display: revert; }
+
+  @media (max-width: 600px) {
+    .bar nav { display: none; }
+    header.hero { padding-top: 2rem; }
+    .services { grid-template-columns: 1fr; }
+    .timeline li, .skills { grid-template-columns: 1fr; }
+    .timeline li { gap: 0; }
+    .skills dt { margin-top: .5rem; }
+    .run { font-size: .8rem; }
+  }
+  @media print {
+    .bar, .cta, .run { display: none; }
+    body { background: #fff; }
+    section { padding: 1.25rem 0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <nav aria-label="Sections">
+      <a href="#services"><span data-lang-en>Services</span><span data-lang-pl>Usługi</span></a>
+      <a href="#projects"><span data-lang-en>Projects</span><span data-lang-pl>Projekty</span></a>
+      <a href="#experience"><span data-lang-en>Experience</span><span data-lang-pl>Doświadczenie</span></a>
+      <a href="#contact"><span data-lang-en>Contact</span><span data-lang-pl>Kontakt</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-set-lang="pl" aria-pressed="false">PL</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <h1>Aliaksandr Makaranka</h1>
+    <p class="role">
+      <span data-lang-en>Java developer and QA automation engineer in Poland. I make sure websites and online stores keep working, and I automate the boring parts of the job.</span>
+      <span data-lang-pl>Programista Java i inżynier automatyzacji testów w Polsce. Dbam o to, żeby strony i sklepy internetowe działały bez błędów, i automatyzuję rutynowe zadania.</span>
+    </p>
+
+    <div class="run" aria-label="Automated tests in my projects">
+      <div class="line cmd" style="animation-delay:.1s">$ count-tests ~/portfolio</div>
+      <div class="line" style="animation-delay:.45s">demoqa        UI tests        <span class="ok">40</span></div>
+      <div class="line" style="animation-delay:.8s">hr_project    unit tests      <span class="ok">21</span></div>
+      <div class="line" style="animation-delay:1.15s">herokuapp     UI tests        <span class="ok">7</span></div>
+      <div class="line" style="animation-delay:1.5s">task-api      API tests       <span class="ok">7</span></div>
+      <div class="line total" style="animation-delay:1.9s"><span data-lang-en>75 automated tests across 4 projects.</span><span data-lang-pl>75 testów automatycznych w 4 projektach.</span></div>
+    </div>
+
+    <div class="cta">
+      <a class="btn primary" href="#contact"><span data-lang-en>Get in touch</span><span data-lang-pl>Skontaktuj się</span></a>
+      <a class="btn" href="https://github.com/AliaksandrMakaranka"><span data-lang-en>See my GitHub</span><span data-lang-pl>Zobacz GitHub</span></a>
+    </div>
+  </header>
+
+  <section id="services">
+    <h2><span data-lang-en>What I can do for your business</span><span data-lang-pl>W czym mogę pomóc Twojej firmie</span></h2>
+    <div class="services">
+      <div>
+        <h3><span data-lang-en>Test automation for your website</span><span data-lang-pl>Automatyczne testy strony</span></h3>
+        <p><span data-lang-en>Daily automated checks of the cart, checkout, forms and login, with a clear report when something breaks.</span><span data-lang-pl>Codzienne automatyczne sprawdzanie koszyka, płatności, formularzy i logowania, z czytelnym raportem, gdy coś przestanie działać.</span></p>
+      </div>
+      <div>
+        <h3><span data-lang-en>Back-end development</span><span data-lang-pl>Back-end</span></h3>
+        <p><span data-lang-en>REST APIs and integrations in Java and Spring Boot, with databases and Docker.</span><span data-lang-pl>REST API i integracje w Javie i Spring Boot, z bazami danych i Dockerem.</span></p>
+      </div>
+      <div>
+        <h3><span data-lang-en>Price and data monitoring</span><span data-lang-pl>Monitoring cen i danych</span></h3>
+        <p><span data-lang-en>Scripts that collect prices, offers or news from websites and save them to a spreadsheet.</span><span data-lang-pl>Skrypty, które zbierają ceny, oferty lub wiadomości ze stron i zapisują je do arkusza.</span></p>
+      </div>
+      <div>
+        <h3><span data-lang-en>AI-assisted automation</span><span data-lang-pl>Automatyzacja z AI</span></h3>
+        <p><span data-lang-en>Product descriptions, reports and data processing done with AI tools, checked by a person.</span><span data-lang-pl>Opisy produktów, raporty i przetwarzanie danych z pomocą AI, sprawdzane przez człowieka.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2><span data-lang-en>Projects</span><span data-lang-pl>Projekty</span></h2>
+    <ul class="projects">
+      <li>
+        <h3><a href="https://github.com/AliaksandrMakaranka/demoqa">demoqa</a></h3>
+        <span class="badge">40 tests</span>
+        <p><span data-lang-en>UI test suite for a practice web app: forms, tables, alerts, frames, file upload.</span><span data-lang-pl>Testy UI aplikacji webowej: formularze, tabele, alerty, ramki, upload plików.</span></p>
+        <span class="stack">Java, Selenium, JUnit 5, Allure, Page Object</span>
+      </li>
+      <li>
+        <h3><a href="https://github.com/AliaksandrMakaranka/hr_project">hr_project</a></h3>
+        <span class="badge">21 tests</span>
+        <p><span data-lang-en>Front-end of a recruitment agency website with job filters by city and category.</span><span data-lang-pl>Front-end strony agencji rekrutacyjnej z filtrami ofert według miast i kategorii.</span></p>
+        <span class="stack">React, TypeScript, Vite, Zustand, Vitest</span>
+      </li>
+      <li>
+        <h3><a href="https://github.com/AliaksandrMakaranka/task-api">task-api</a></h3>
+        <span class="badge">7 tests</span>
+        <p><span data-lang-en>REST API for a Kanban task tracker, runs locally with Docker.</span><span data-lang-pl>REST API do tablicy zadań Kanban, uruchamiane lokalnie przez Docker.</span></p>
+        <span class="stack">Spring Boot, PostgreSQL, JPA, MockMvc, Docker</span>
+      </li>
+      <li>
+        <h3><a href="https://github.com/AliaksandrMakaranka/herokuapp">herokuapp</a></h3>
+        <span class="badge">7 tests</span>
+        <p><span data-lang-en>UI tests for tricky elements: login, drag and drop, nested frames.</span><span data-lang-pl>Testy UI trudnych elementów: logowanie, drag and drop, zagnieżdżone ramki.</span></p>
+        <span class="stack">Java, Selenium, JUnit 5</span>
+      </li>
+      <li>
+        <h3><a href="https://github.com/AliaksandrMakaranka/Parser">Parser</a></h3>
+        <span class="badge">scraper</span>
+        <p><span data-lang-en>Web scraper that collects headlines and links and saves them to a file.</span><span data-lang-pl>Parser stron, który zbiera nagłówki i linki i zapisuje je do pliku.</span></p>
+        <span class="stack">Java, Jsoup</span>
+      </li>
+    </ul>
+  </section>
+
+  <section id="experience">
+    <h2><span data-lang-en>Experience and training</span><span data-lang-pl>Doświadczenie i szkolenia</span></h2>
+    <ul class="timeline">
+      <li>
+        <span class="when">2024–2025</span>
+        <div>
+          <h3><span data-lang-en>JenkinsQA team project</span><span data-lang-pl>Projekt zespołowy JenkinsQA</span></h3>
+          <p><span data-lang-en>Test automation for Jenkins in a large team: code review, Git workflow, merged pull requests in Java and Python.</span><span data-lang-pl>Automatyzacja testów Jenkinsa w dużym zespole: code review, praca z Gitem, zaakceptowane pull requesty w Javie i Pythonie.</span></p>
+        </div>
+      </li>
+      <li>
+        <span class="when">2024</span>
+        <div>
+          <h3><span data-lang-en>Java bootcamp</span><span data-lang-pl>Bootcamp Java</span></h3>
+          <p><span data-lang-en>Core Java, OOP, collections, testing.</span><span data-lang-pl>Java, programowanie obiektowe, kolekcje, testowanie.</span></p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="skills">
+    <h2><span data-lang-en>Skills</span><span data-lang-pl>Umiejętności</span></h2>
+    <dl class="skills">
+      <dt>Back-end</dt><dd>Java, Spring Boot, Axon Framework, SQL, PostgreSQL</dd>
+      <dt><span data-lang-en>Testing</span><span data-lang-pl>Testowanie</span></dt><dd>Selenium, JUnit 5, TestNG, REST Assured, Allure</dd>
+      <dt><span data-lang-en>Tools</span><span data-lang-pl>Narzędzia</span></dt><dd>Docker, Linux, Git, Maven, Gradle</dd>
+      <dt><span data-lang-en>Also</span><span data-lang-pl>Również</span></dt><dd>Python, Rust, TypeScript, React</dd>
+      <dt><span data-lang-en>Languages</span><span data-lang-pl>Języki</span></dt><dd><span data-lang-en>Russian, Polish, English</span><span data-lang-pl>rosyjski, polski, angielski</span></dd>
+    </dl>
+  </section>
+
+  <section id="contact">
+    <h2><span data-lang-en>Contact</span><span data-lang-pl>Kontakt</span></h2>
+    <p class="muted"><span data-lang-en>Open to projects and cooperation in Poland and remotely.</span><span data-lang-pl>Otwarty na projekty i współpracę w Polsce oraz zdalnie.</span></p>
+    <ul class="contact-list">
+      <li><a href="https://www.linkedin.com/in/aliaksandr-makaranka">LinkedIn</a></li>
+      <li><a href="https://github.com/AliaksandrMakaranka">GitHub</a></li>
+    </ul>
+  </section>
+
+  <footer>© 2026 Aliaksandr Makaranka</footer>
+</div>
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('[data-set-lang]');
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)); });
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+    }
+    buttons.forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.setLang); }); });
+    var saved = null;
+    try { saved = localStorage.getItem('lang'); } catch (e) {}
+    if (saved) setLang(saved);
+    else if ((navigator.language || '').toLowerCase().startsWith('pl')) setLang('pl');
+  })();
+</script>
+</body>
+</html>
