@@ -56,6 +56,7 @@
   .services { display:grid; grid-template-columns:repeat(2,1fr); gap:1.75rem 2.5rem; }
   .services h3 { margin:0 0 .3rem; font-size:1.1rem; }
   .services p { margin:0; color:var(--mute); }
+  .soon { display:inline-block; vertical-align:middle; margin-left:.35rem; font-size:.75rem; font-weight:700; color:var(--mute); border:1px dashed var(--mute); padding:.05rem .5rem; border-radius:999px; }
   .services .bridge { grid-column:1 / -1; background:var(--blue-soft); border-radius:12px; padding:1.4rem 1.5rem; }
   .services .bridge p { color:var(--ink); }
 
@@ -129,11 +130,11 @@
     <p class="intro" data-i="s_intro"></p>
     <div class="services">
       <div><h3 data-i="s1"></h3><p data-i="s1d"></p></div>
-      <div><h3 data-i="s2"></h3><p data-i="s2d"></p></div>
-      <div><h3 data-i="s3"></h3><p data-i="s3d"></p></div>
-      <div><h3 data-i="s4"></h3><p data-i="s4d"></p></div>
+      <div><h3><span data-i="s2"></span> <span class="soon" data-i="soon"></span></h3><p data-i="s2d"></p></div>
+      <div><h3><span data-i="s3"></span> <span class="soon" data-i="soon"></span></h3><p data-i="s3d"></p></div>
+      <div><h3><span data-i="s4"></span> <span class="soon" data-i="soon"></span></h3><p data-i="s4d"></p></div>
       <div><h3 data-i="s5"></h3><p data-i="s5d"></p></div>
-      <div><h3 data-i="s6"></h3><p data-i="s6d"></p></div>
+      <div><h3><span data-i="s6"></span> <span class="soon" data-i="soon"></span></h3><p data-i="s6d"></p></div>
       <div><h3 data-i="s7"></h3><p data-i="s7d"></p></div>
       <div><h3 data-i="s8"></h3><p data-i="s8d"></p></div>
       <div class="bridge"><h3 data-i="s9"></h3><p data-i="s9d"></p></div>
@@ -224,7 +225,7 @@ pl: {
   p3_tag:"HR i zespół", p3:"Rekrutacja i wdrożenie", p3_time:"od 2 tygodni",
   p3_a:"Szablony ogłoszeń i kryteria selekcji", p3_b:"Automatyczne umawianie rozmów", p3_c:"Onboarding, także dla osób mówiących po rosyjsku i ukraińsku",
   p3_res:"Szybsze zatrudnianie, mniej chaosu",
-  res:"Wynik",
+  res:"Wynik", soon:"w przygotowaniu",
   price:"Cenę ustalam indywidualnie, po pierwszej rozmowie. Pierwsza rozmowa jest bezpłatna.",
   a_title:"Dlaczego ja",
   a1:"Znam obie strony: przez lata pisałem kod w Javie i automatyczne testy, a dziś zarządzam ludźmi i procesami, w tym rekrutacją. Rozumiem, co warto zautomatyzować, a co lepiej zostawić człowiekowi.",
@@ -264,7 +265,7 @@ en: {
   p3_tag:"HR and team", p3:"Recruitment and onboarding", p3_time:"from 2 weeks",
   p3_a:"Job ad templates and screening criteria", p3_b:"Automated interview scheduling", p3_c:"Onboarding, including Russian and Ukrainian speakers",
   p3_res:"Faster hiring, less chaos",
-  res:"Result",
+  res:"Result", soon:"coming soon",
   price:"Pricing is individual and agreed after the first call. The first call is free.",
   a_title:"Why me",
   a1:"I know both sides: for years I wrote Java code and automated tests, and today I manage people and processes, including recruitment. I know what is worth automating and what is better left to a person.",
@@ -304,7 +305,7 @@ ru: {
   p3_tag:"HR и команда", p3:"Подбор и адаптация", p3_time:"от 2 недель",
   p3_a:"Шаблоны вакансий и критерии отбора", p3_b:"Автоматическое назначение собеседований", p3_c:"Адаптация, в том числе для русско- и украиноязычных сотрудников",
   p3_res:"Быстрее нанимать, меньше хаоса",
-  res:"Результат",
+  res:"Результат", soon:"в разработке",
   price:"Стоимость обсуждается индивидуально после первого разговора. Первый разговор бесплатный.",
   a_title:"Почему я",
   a1:"Я знаю обе стороны: годами писал код на Java и автотесты, а сейчас управляю людьми и процессами, включая подбор персонала. Понимаю, что стоит автоматизировать, а что лучше оставить человеку.",
