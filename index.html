@@ -4,316 +4,490 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aliaksandr Makaranka · Automatyzacja procesów, boty, HR</title>
-<meta name="description" content="Automatyzuję rutynowe procesy w firmach, tworzę boty Telegram, analizuję konkurencję i wspieram rekrutację. Pracuję zdalnie. PL · EN · RU.">
+<meta name="description" content="Automatyzuję rutynowe procesy w firmach, tworzę boty, analizuję konkurencję i wspieram rekrutację. Pracuję zdalnie. PL · EN · RU.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:#FFFFFF; --ink:#1C2230; --mute:#626B7D; --rule:#E4E7EC; --soft:#F3F5F9;
-    --blue:#2F5BEA; --blue-soft:#EAF0FE;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg:#11151D; --ink:#E9ECF2; --mute:#A0A8B8; --rule:#262D3A; --soft:#181E29;
-      --blue:#7C9BFF; --blue-soft:#1C2540;
-    }
+    --night:#0E1630; --night2:#16214A; --bg:#FFFFFF; --soft:#F3F5FA; --ink:#1A2032; --mute:#5F6880;
+    --rule:#E3E6EE; --blue:#2F5BEA; --blue-soft:#E9EFFE; --sun:#FFB547; --green:#22A061; --green-soft:#E3F5EB;
   }
   * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
   body { margin:0; background:var(--bg); color:var(--ink); font:400 1.0625rem/1.6 Manrope, system-ui, sans-serif; }
   a { color:inherit; }
-  a:focus-visible, button:focus-visible { outline:3px solid var(--blue); outline-offset:3px; border-radius:4px; }
-  .wrap { max-width:64rem; margin:0 auto; padding:0 1.25rem; }
+  a:focus-visible, button:focus-visible { outline:3px solid var(--sun); outline-offset:3px; border-radius:4px; }
+  .wrap { max-width:68rem; margin:0 auto; padding:0 1.25rem; }
+  h2 { font-size:clamp(1.6rem,3.5vw,2.2rem); line-height:1.15; letter-spacing:-.02em; margin:0 0 .6rem; font-weight:800; }
+  .intro { color:var(--mute); font-size:1.1rem; max-width:42rem; margin:0 0 2.5rem; }
 
-  .bar { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1.25rem 0; }
-  .bar .name { font-weight:800; text-decoration:none; }
-  .lang { display:inline-flex; border:1px solid var(--rule); border-radius:999px; overflow:hidden; }
-  .lang button { font:inherit; font-size:.875rem; font-weight:500; border:0; background:none; color:var(--mute); padding:.3rem .75rem; cursor:pointer; }
-  .lang button[aria-pressed="true"] { background:var(--ink); color:var(--bg); }
+  .top { position:sticky; top:0; z-index:10; background:rgba(14,22,48,.92); backdrop-filter:blur(8px); color:#fff; }
+  .top .wrap { display:flex; align-items:center; justify-content:space-between; gap:1rem; height:64px; }
+  .logo { display:flex; align-items:center; gap:.6rem; text-decoration:none; font-weight:800; }
+  .logo i { width:34px; height:34px; border-radius:9px; background:var(--blue); display:grid; place-items:center; font-style:normal; font-size:.9rem; color:#fff; }
+  .menu { display:flex; gap:1.4rem; font-size:.95rem; }
+  .menu a { text-decoration:none; color:#C5CDE6; }
+  .menu a:hover { color:#fff; }
+  .lang { display:inline-flex; border:1px solid #33406E; border-radius:999px; overflow:hidden; flex:none; }
+  .lang button { font:inherit; font-size:.85rem; font-weight:600; border:0; background:none; color:#C5CDE6; padding:.3rem .75rem; cursor:pointer; }
+  .lang button[aria-pressed="true"] { background:#fff; color:var(--night); }
 
-  header.hero { padding:3rem 0 3.5rem; display:grid; grid-template-columns:1.1fr 1fr; gap:3rem; align-items:center; }
-  h1 { font-size:clamp(2.1rem,5vw,3.1rem); line-height:1.08; font-weight:800; letter-spacing:-.025em; margin:0 0 1rem; }
-  .lead { color:var(--mute); font-size:1.15rem; margin:0 0 1rem; }
-  .remote { display:inline-flex; align-items:center; gap:.5rem; font-size:.95rem; font-weight:500; margin:0 0 1.75rem; }
-  .remote::before { content:""; width:.55rem; height:.55rem; border-radius:50%; background:#2FA866; }
-  .btns { display:flex; gap:.75rem; flex-wrap:wrap; }
-  .btn { display:inline-block; padding:.8rem 1.3rem; border-radius:8px; text-decoration:none; font-weight:700; border:2px solid var(--blue); }
-  .btn.primary { background:var(--blue); color:#fff; }
-  .btn:not(.primary) { color:var(--blue); }
+  .hero { background:radial-gradient(ellipse at 80% 0%, #24357A 0%, transparent 55%), var(--night); color:#fff; overflow:hidden; }
+  .slides { position:relative; display:grid; }
+  .slide { grid-area:1/1; display:grid; grid-template-columns:1.1fr 1fr; gap:3rem; align-items:center; padding:3.5rem 0 5rem;
+           opacity:0; visibility:hidden; transition:opacity .6s ease, visibility .6s; }
+  .slide.on { opacity:1; visibility:visible; }
+  .kicker { color:var(--sun); font-weight:700; margin:0 0 .75rem; }
+  .slide h1, .slide .h1 { font-size:clamp(2.1rem,5vw,3.3rem); line-height:1.06; letter-spacing:-.025em; margin:0 0 1rem; font-weight:800; }
+  .slide p.sub { color:#C5CDE6; font-size:1.15rem; margin:0 0 1.75rem; max-width:34rem; }
+  .btn { display:inline-block; padding:.85rem 1.35rem; border-radius:10px; text-decoration:none; font-weight:700; }
+  .btn.sun { background:var(--sun); color:var(--night); }
+  .btn.ghost { border:2px solid #4A5A93; color:#fff; margin-left:.5rem; }
+  .ctrl { position:absolute; bottom:1.4rem; left:1.25rem; display:flex; gap:.6rem; align-items:center; }
+  .ctrl button { font:inherit; font-size:1.2rem; background:none; border:1px solid #4A5A93; color:#fff; width:38px; height:38px; border-radius:50%; cursor:pointer; }
+  .dots { display:flex; gap:.4rem; margin-left:.4rem; }
+  .dots span { width:26px; height:4px; border-radius:2px; background:#3A4878; }
+  .dots span.on { background:var(--sun); }
 
-  .week { background:var(--soft); border-radius:14px; padding:1.5rem; }
-  .week h2 { font-size:1rem; margin:0 0 1rem; color:var(--mute); font-weight:500; }
-  .task { display:flex; justify-content:space-between; gap:1rem; padding:.55rem 0; border-bottom:1px solid var(--rule); }
+  .panel { background:#fff; color:var(--ink); border-radius:16px; padding:1.4rem; box-shadow:0 30px 60px -30px rgba(0,0,0,.6); }
+  .panel h3 { margin:0 0 .9rem; font-size:.95rem; color:var(--mute); font-weight:600; }
+  .task { display:flex; justify-content:space-between; gap:1rem; padding:.5rem 0; border-bottom:1px solid var(--rule); font-size:.97rem; }
   .task s { text-decoration-color:var(--blue); text-decoration-thickness:2px; color:var(--mute); }
-  .task b { color:var(--blue); font-weight:700; white-space:nowrap; }
-  .sum { margin-top:.6rem; padding-top:.9rem; border-top:2px solid var(--ink); display:flex; justify-content:space-between; gap:1rem; font-weight:800; }
-  .week .note { margin:.75rem 0 0; font-size:.8125rem; color:var(--mute); }
+  .task b { color:var(--blue); white-space:nowrap; }
+  .sum { margin-top:.6rem; padding-top:.8rem; border-top:2px solid var(--ink); display:flex; justify-content:space-between; gap:1rem; font-weight:800; }
+  .note { margin:.6rem 0 0; font-size:.8rem; color:var(--mute); }
+  .pipe { display:grid; grid-template-columns:repeat(4,1fr); gap:.5rem; }
+  .pipe div { background:var(--soft); border-radius:10px; padding:.6rem; font-size:.8rem; }
+  .pipe b { display:block; font-size:1.6rem; color:var(--blue); line-height:1.2; }
+  .who { display:flex; gap:.6rem; align-items:center; margin-top:.8rem; padding:.7rem; border:1px solid var(--rule); border-radius:10px; font-size:.92rem; }
+  .who .av { width:36px; height:36px; border-radius:50%; background:var(--green-soft); color:var(--green); display:grid; place-items:center; font-weight:800; flex:none; font-size:.85rem; }
+  .who .ok { margin-left:auto; color:var(--green); font-weight:700; font-size:.85rem; white-space:nowrap; }
+  .bub { max-width:85%; padding:.65rem .9rem; border-radius:14px; margin:.4rem 0; font-size:.95rem; }
+  .bub.l { background:var(--soft); border-bottom-left-radius:4px; }
+  .bub.r { background:var(--blue); color:#fff; margin-left:auto; border-bottom-right-radius:4px; }
+  .bub small { display:block; opacity:.75; font-size:.75rem; margin-bottom:.15rem; }
 
-  section { padding:3.25rem 0; border-top:1px solid var(--rule); }
-  section > h2 { font-size:1.7rem; letter-spacing:-.015em; margin:0 0 .5rem; }
-  section > .intro { color:var(--mute); margin:0 0 2rem; max-width:40rem; }
+  .stats { background:var(--night2); color:#fff; }
+  .stats .wrap { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; padding-top:1.6rem; padding-bottom:1.6rem; }
+  .stats b { display:block; font-size:2rem; font-weight:800; color:var(--sun); line-height:1.1; }
+  .stats span { color:#C5CDE6; font-size:.95rem; }
 
-  .services { display:grid; grid-template-columns:repeat(2,1fr); gap:1.75rem 2.5rem; }
-  .services h3 { margin:0 0 .3rem; font-size:1.1rem; }
-  .services p { margin:0; color:var(--mute); }
-  .soon { display:inline-block; vertical-align:middle; margin-left:.35rem; font-size:.75rem; font-weight:700; color:var(--mute); border:1px dashed var(--mute); padding:.05rem .5rem; border-radius:999px; }
-  .services .bridge { grid-column:1 / -1; background:var(--blue-soft); border-radius:12px; padding:1.4rem 1.5rem; }
-  .services .bridge p { color:var(--ink); }
+  .areas { padding:5rem 0 2rem; }
+  .area { display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:center; padding:3rem 0; border-top:1px solid var(--rule); }
+  .area:nth-child(even) .txt { order:2; }
+  .icon { width:52px; height:52px; border-radius:14px; display:grid; place-items:center; margin-bottom:1rem; }
+  .icon svg { width:28px; height:28px; }
+  .area h3 { font-size:1.6rem; letter-spacing:-.015em; margin:0 0 .2rem; line-height:1.2; }
+  .area .tagline { color:var(--blue); font-weight:600; margin:0 0 .9rem; }
+  .area p { margin:0 0 1rem; color:var(--mute); }
+  .area ul { margin:0; padding:0; list-style:none; }
+  .area li { padding:.35rem 0 .35rem 1.6rem; position:relative; }
+  .area li::before { content:""; position:absolute; left:0; top:.95rem; width:.9rem; height:2px; background:var(--blue); }
+  .soon { display:inline-block; vertical-align:middle; font-size:.75rem; font-weight:700; color:var(--mute); border:1px dashed var(--mute); padding:.05rem .55rem; border-radius:999px; margin-left:.3rem; letter-spacing:0; line-height:1.5; }
+  .vis { background:var(--soft); border-radius:20px; padding:1.6rem; }
+  .vis .panel { box-shadow:0 20px 40px -28px rgba(14,22,48,.45); }
+  .area .vis h3 { font-size:.95rem; letter-spacing:0; margin:0 0 .9rem; color:var(--mute); font-weight:600; line-height:1.4; }
+  table.mini { width:100%; border-collapse:collapse; font-size:.92rem; }
+  table.mini th { text-align:left; color:var(--mute); font-weight:600; padding:.35rem .3rem; border-bottom:1px solid var(--rule); }
+  table.mini td { padding:.45rem .3rem; border-bottom:1px solid var(--rule); }
+  .up { color:#D0453B; font-weight:700; } .down { color:var(--green); font-weight:700; }
+  .chk { display:flex; justify-content:space-between; gap:1rem; padding:.45rem 0; border-bottom:1px solid var(--rule); font-size:.95rem; }
+  .chk b { color:var(--green); white-space:nowrap; } .chk b.bad { color:#D0453B; }
+  .bars { display:flex; align-items:end; gap:.5rem; height:110px; margin:.6rem 0 .4rem; }
+  .bars span { flex:1; background:var(--blue-soft); border-radius:6px 6px 0 0; }
+  .bars span.hi { background:var(--blue); }
+  .flags { display:flex; gap:.5rem; margin-bottom:.6rem; font-size:.8rem; font-weight:700; }
+  .flags span { background:var(--blue-soft); color:var(--blue); padding:.1rem .55rem; border-radius:999px; }
 
-  .packs { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
-  .pack { border:1px solid var(--rule); border-radius:12px; padding:1.5rem; display:flex; flex-direction:column; background:var(--bg); }
-  .pack.main { border:2px solid var(--blue); }
-  .tag { align-self:start; font-size:.8125rem; font-weight:700; color:var(--blue); background:var(--blue-soft); padding:.15rem .6rem; border-radius:999px; margin-bottom:1rem; }
-  .pack h3 { margin:0 0 .25rem; font-size:1.25rem; }
+  .steps { background:var(--soft); padding:4.5rem 0; }
+  .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; }
+  .step { background:#fff; border-radius:16px; padding:1.4rem; }
+  .step .n { width:36px; height:36px; border-radius:50%; background:var(--night); color:var(--sun); display:grid; place-items:center; font-weight:800; margin-bottom:.9rem; }
+  .step h3 { margin:0 0 .3rem; font-size:1.1rem; }
+  .step p { margin:0; color:var(--mute); font-size:.97rem; }
+
+  .packs-sec { padding:4.5rem 0; }
+  .packs { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+  .pack { border:1px solid var(--rule); border-radius:16px; padding:1.6rem; display:flex; flex-direction:column; }
+  .pack.main { border:2px solid var(--blue); box-shadow:0 24px 50px -32px rgba(47,91,234,.6); }
+  .tag { align-self:start; font-size:.8rem; font-weight:700; color:var(--blue); background:var(--blue-soft); padding:.15rem .65rem; border-radius:999px; margin-bottom:1rem; }
+  .pack h3 { margin:0 0 .2rem; font-size:1.3rem; }
   .pack .time { color:var(--mute); margin:0 0 1rem; font-size:.95rem; }
   .pack ul { list-style:none; padding:0; margin:0 0 1.25rem; flex:1; }
-  .pack li { padding:.45rem 0; border-top:1px solid var(--rule); }
+  .pack li { padding:.5rem 0; border-top:1px solid var(--rule); }
   .pack .res { margin:0; font-weight:700; }
-  .pack .res span { display:block; font-weight:400; color:var(--mute); font-size:.9375rem; }
-  .price { margin:1.25rem 0 0; color:var(--mute); font-size:.95rem; }
+  .pack .res span { display:block; }
+  .pack .res span + span { font-weight:400; color:var(--mute); font-size:.92rem; }
+  .price { margin:1.4rem 0 0; color:var(--mute); }
 
-  .about { display:grid; grid-template-columns:1fr 2fr; gap:2rem; }
-  .about h2 { margin:0; font-size:1.7rem; letter-spacing:-.015em; }
-  .about p { margin:0 0 1rem; max-width:40rem; }
-  .facts { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.25rem; padding:0; list-style:none; }
-  .facts li { font-size:.9rem; padding:.3rem .75rem; border:1px solid var(--rule); border-radius:999px; }
+  .about { background:var(--night); color:#fff; padding:4.5rem 0; }
+  .about .wrap { display:grid; grid-template-columns:1fr 1.4fr; gap:3rem; align-items:start; }
+  .card-me { background:var(--night2); border-radius:20px; padding:1.75rem; text-align:center; }
+  .card-me .big { width:110px; height:110px; border-radius:50%; margin:0 auto 1rem; background:linear-gradient(135deg,var(--blue),#6D8BFF); display:grid; place-items:center; font-size:2.2rem; font-weight:800; }
+  .card-me h3 { margin:0; font-size:1.3rem; }
+  .card-me p { margin:.2rem 0 1rem; color:#C5CDE6; }
+  .chips { display:flex; flex-wrap:wrap; gap:.45rem; justify-content:center; padding:0; margin:0; list-style:none; }
+  .chips li { font-size:.85rem; padding:.25rem .7rem; border:1px solid #3A4878; border-radius:999px; color:#DDE3F5; }
+  .about p { color:#C5CDE6; margin:0 0 1rem; }
+  .proj { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-top:1.5rem; }
+  .proj a { display:block; text-decoration:none; background:var(--night2); border-radius:12px; padding:.9rem 1rem; }
+  .proj a:hover { background:#1D2B5E; }
+  .proj b { display:block; color:#fff; }
+  .proj span { color:#AEB8D6; font-size:.88rem; }
 
-  .cta { background:var(--ink); color:var(--bg); border-radius:14px; padding:2.25rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; margin:0 0 2rem; }
-  .cta h2 { margin:0; font-size:1.5rem; }
-  .cta p { margin:.35rem 0 0; opacity:.75; }
+  .faq { padding:4.5rem 0; }
+  .faq .wrap { max-width:50rem; }
+  details { border-bottom:1px solid var(--rule); padding:1.1rem 0; }
+  summary { cursor:pointer; font-weight:700; font-size:1.1rem; list-style:none; display:flex; justify-content:space-between; gap:1rem; }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:"+"; color:var(--blue); font-size:1.4rem; line-height:1; }
+  details[open] summary::after { content:"–"; }
+  details p { color:var(--mute); margin:.7rem 0 0; }
+
+  .cta { background:linear-gradient(120deg,var(--blue),#5B7BFF); color:#fff; border-radius:24px; padding:3rem; display:flex; justify-content:space-between; align-items:center; gap:2rem; flex-wrap:wrap; margin:0 0 4rem; }
+  .cta h2 { margin:0; }
+  .cta p { margin:.4rem 0 0; color:#E3E9FF; }
   .cta .links { display:flex; gap:.75rem; flex-wrap:wrap; }
-  .cta a { background:var(--bg); color:var(--ink); padding:.75rem 1.2rem; border-radius:8px; text-decoration:none; font-weight:700; }
-  footer { padding:0 0 3rem; color:var(--mute); font-size:.9rem; }
+  .cta .links a { background:#fff; color:var(--blue); text-decoration:none; font-weight:700; padding:.8rem 1.3rem; border-radius:10px; }
+  footer { background:var(--night); color:#AEB8D6; padding:3rem 0 2rem; font-size:.95rem; }
+  footer .cols { display:grid; grid-template-columns:2fr 1fr 1fr; gap:2rem; }
+  footer h4 { color:#fff; margin:0 0 .7rem; font-size:1rem; }
+  footer ul { list-style:none; padding:0; margin:0; }
+  footer li { margin:.3rem 0; }
+  footer a { text-decoration:none; } footer a:hover { color:#fff; }
+  footer .copy { border-top:1px solid #26325C; margin-top:2rem; padding-top:1.25rem; font-size:.85rem; }
 
-  @media (max-width:820px) {
-    header.hero, .about { grid-template-columns:1fr; }
-    .services, .packs { grid-template-columns:1fr; }
-    header.hero { padding-top:1.5rem; gap:2rem; }
+  @media (max-width:900px) {
+    .menu { display:none; }
+    .slide { grid-template-columns:1fr; gap:2rem; padding:2.5rem 0 5rem; }
+    .area, .about .wrap { grid-template-columns:1fr; gap:2rem; }
+    .area:nth-child(even) .txt { order:0; }
+    .flow, .packs { grid-template-columns:1fr 1fr; }
+    .stats .wrap { grid-template-columns:1fr 1fr; }
+    footer .cols { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:600px) {
+    .top .logo span { display:none; }
+    .flow, .packs, .proj { grid-template-columns:1fr; }
+    .btn.ghost { margin:.6rem 0 0; }
+    .cta { padding:2rem 1.4rem; }
+    .pipe { grid-template-columns:1fr 1fr; }
+    .vis { padding:1rem; }
+    footer .cols { grid-template-columns:1fr; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="bar">
-    <a class="name" href="#">Aliaksandr Makaranka</a>
+
+<div class="top">
+  <div class="wrap">
+    <a class="logo" href="#"><i>AM</i><span>Aliaksandr Makaranka</span></a>
+    <nav class="menu" aria-label="Menu">
+      <a href="#uslugi" data-i="m1"></a><a href="#proces" data-i="m2"></a><a href="#oferta" data-i="m3"></a><a href="#o-mnie" data-i="m4"></a><a href="#kontakt" data-i="m5"></a>
+    </nav>
     <div class="lang" role="group" aria-label="Język / Language / Язык">
       <button type="button" data-set-lang="pl" aria-pressed="true">PL</button>
       <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
       <button type="button" data-set-lang="ru" aria-pressed="false">RU</button>
     </div>
   </div>
+</div>
 
-  <header class="hero">
-    <div>
-      <h1 data-i="h1"></h1>
-      <p class="lead" data-i="lead"></p>
-      <p class="remote" data-i="remote"></p>
-      <div class="btns">
-        <a class="btn primary" href="#contact" data-i="cta_talk"></a>
-        <a class="btn" href="#packs" data-i="cta_offer"></a>
+<div class="hero" aria-roledescription="carousel">
+  <div class="wrap slides">
+    <div class="slide on">
+      <div>
+        <p class="kicker" data-i="k1"></p>
+        <h1 data-i="h1"></h1>
+        <p class="sub" data-i="sub1"></p>
+        <a class="btn sun" href="#kontakt" data-i="cta_talk"></a><a class="btn ghost" href="#oferta" data-i="cta_offer"></a>
+      </div>
+      <div class="panel">
+        <h3 data-i="week_title"></h3>
+        <div class="task"><s data-i="t1"></s><b>4 h → 0</b></div>
+        <div class="task"><s data-i="t2"></s><b>3 h → 5 min</b></div>
+        <div class="task"><s data-i="t3"></s><b>5 h → 1 h</b></div>
+        <div class="task"><s data-i="t4"></s><b>3 h → 20 min</b></div>
+        <div class="sum"><span data-i="sum"></span><span data-i="sum_v"></span></div>
+        <p class="note" data-i="week_note"></p>
       </div>
     </div>
-    <div class="week">
-      <h2 data-i="week_title"></h2>
-      <div class="task"><s data-i="t1"></s><b>4 h → 0</b></div>
-      <div class="task"><s data-i="t2"></s><b>3 h → 5 min</b></div>
-      <div class="task"><s data-i="t3"></s><b>5 h → 1 h</b></div>
-      <div class="task"><s data-i="t4"></s><b>3 h → 20 min</b></div>
-      <div class="task"><s data-i="t5"></s><b>2 h → 0</b></div>
-      <div class="sum"><span data-i="sum"></span><span data-i="sum_v"></span></div>
-      <p class="note" data-i="week_note"></p>
-    </div>
-  </header>
 
-  <section id="services">
+    <div class="slide">
+      <div>
+        <p class="kicker" data-i="k2"></p>
+        <p class="h1" data-i="h2s"></p>
+        <p class="sub" data-i="sub2"></p>
+        <a class="btn sun" href="#hr" data-i="more"></a>
+      </div>
+      <div class="panel">
+        <h3 data-i="pipe_title"></h3>
+        <div class="pipe">
+          <div><b>84</b><span data-i="pp1"></span></div>
+          <div><b>17</b><span data-i="pp2"></span></div>
+          <div><b>6</b><span data-i="pp3"></span></div>
+          <div><b>2</b><span data-i="pp4"></span></div>
+        </div>
+        <div class="who"><span class="av">KN</span><span data-i="who1"></span><span class="ok" data-i="who1s"></span></div>
+        <div class="who"><span class="av">OP</span><span data-i="who2"></span><span class="ok" data-i="who2s"></span></div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div>
+        <p class="kicker" data-i="k3"></p>
+        <p class="h1" data-i="h3s"></p>
+        <p class="sub" data-i="sub3"></p>
+        <a class="btn sun" href="#most" data-i="more"></a>
+      </div>
+      <div class="panel">
+        <h3 data-i="chat_title"></h3>
+        <div class="bub l"><small>🇵🇱 Kierownik</small>Jutro zaczynamy o 7:00, proszę zabrać buty ochronne.</div>
+        <div class="bub r"><small data-i="bridge_me"></small>Завтра начинаем в 7:00, возьмите, пожалуйста, защитную обувь.</div>
+        <div class="bub l"><small>🇺🇦 Олена</small>Добре, зрозуміла. А де отримати перепустку?</div>
+        <div class="bub r"><small data-i="bridge_me"></small>Gdzie pracownica może odebrać przepustkę?</div>
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <button type="button" id="prev" aria-label="Previous slide">‹</button>
+      <button type="button" id="next" aria-label="Next slide">›</button>
+      <div class="dots" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="wrap">
+    <div><b>100%</b><span data-i="st1"></span></div>
+    <div><b>3</b><span data-i="st2"></span></div>
+    <div><b>6</b><span data-i="st3"></span></div>
+    <div><b>75</b><span data-i="st4"></span></div>
+  </div>
+</div>
+
+<div class="areas" id="uslugi">
+  <div class="wrap">
     <h2 data-i="s_title"></h2>
     <p class="intro" data-i="s_intro"></p>
-    <div class="services">
-      <div><h3 data-i="s1"></h3><p data-i="s1d"></p></div>
-      <div><h3><span data-i="s2"></span> <span class="soon" data-i="soon"></span></h3><p data-i="s2d"></p></div>
-      <div><h3><span data-i="s3"></span> <span class="soon" data-i="soon"></span></h3><p data-i="s3d"></p></div>
-      <div><h3><span data-i="s4"></span> <span class="soon" data-i="soon"></span></h3><p data-i="s4d"></p></div>
-      <div><h3 data-i="s5"></h3><p data-i="s5d"></p></div>
-      <div><h3><span data-i="s6"></span> <span class="soon" data-i="soon"></span></h3><p data-i="s6d"></p></div>
-      <div><h3 data-i="s7"></h3><p data-i="s7d"></p></div>
-      <div><h3 data-i="s8"></h3><p data-i="s8d"></p></div>
-      <div class="bridge"><h3 data-i="s9"></h3><p data-i="s9d"></p></div>
-    </div>
-  </section>
 
-  <section id="packs">
+    <div class="area-list">
+      <div class="area">
+        <div class="txt">
+          <div class="icon" style="background:var(--blue-soft);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+          <h3 data-i="a1"></h3>
+          <p class="tagline" data-i="a1t"></p>
+          <p data-i="a1d"></p>
+          <ul><li data-i="a1a"></li><li data-i="a1b"></li><li data-i="a1c"></li></ul>
+        </div>
+        <div class="vis"><div class="panel">
+          <h3 data-i="rep_title"></h3>
+          <div class="bars"><span style="height:40%"></span><span style="height:55%"></span><span style="height:48%"></span><span style="height:70%"></span><span style="height:62%"></span><span class="hi" style="height:88%"></span></div>
+          <div class="chk"><span data-i="rep1"></span><b>✓</b></div>
+          <div class="chk"><span data-i="rep2"></span><b>✓</b></div>
+          <div class="chk"><span data-i="rep3"></span><b>✓</b></div>
+        </div></div>
+      </div>
+
+      <div class="area">
+        <div class="txt">
+          <div class="icon" style="background:#E6F4FB;color:#1B8BC6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 8-6"/></svg></div>
+          <h3><span data-i="a2"></span> <span class="soon" data-i="soon"></span></h3>
+          <p class="tagline" data-i="a2t"></p>
+          <p data-i="a2d"></p>
+          <ul><li data-i="a2a"></li><li data-i="a2b"></li><li data-i="a2c"></li></ul>
+        </div>
+        <div class="vis"><div class="panel">
+          <h3 data-i="bot_title"></h3>
+          <div class="bub l"><small data-i="bot_client"></small><span data-i="bot1"></span></div>
+          <div class="bub r"><small>🤖 Bot</small><span data-i="bot2"></span></div>
+          <div class="bub l"><small data-i="bot_client"></small><span data-i="bot3"></span></div>
+          <div class="bub r"><small>🤖 Bot</small><span data-i="bot4"></span></div>
+        </div></div>
+      </div>
+
+      <div class="area">
+        <div class="txt">
+          <div class="icon" style="background:#FFF3E2;color:#C77A0A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M8 13l2-2 2 2 3-3"/></svg></div>
+          <h3><span data-i="a3"></span> <span class="soon" data-i="soon"></span></h3>
+          <p class="tagline" data-i="a3t"></p>
+          <p data-i="a3d"></p>
+          <ul><li data-i="a3a"></li><li data-i="a3b"></li><li data-i="a3c"></li></ul>
+        </div>
+        <div class="vis"><div class="panel">
+          <h3 data-i="cmp_title"></h3>
+          <table class="mini">
+            <tr><th data-i="cmp_p"></th><th data-i="cmp_you"></th><th>A</th><th>B</th></tr>
+            <tr><td data-i="cmp1"></td><td>149 zł</td><td>139 zł <span class="down">↓</span></td><td>155 zł</td></tr>
+            <tr><td data-i="cmp2"></td><td>89 zł</td><td>95 zł</td><td>79 zł <span class="down">↓</span></td></tr>
+            <tr><td data-i="cmp3"></td><td>320 zł</td><td>349 zł <span class="up">↑</span></td><td>330 zł</td></tr>
+          </table>
+          <p class="note" data-i="cmp_note"></p>
+        </div></div>
+      </div>
+
+      <div class="area">
+        <div class="txt">
+          <div class="icon" style="background:var(--green-soft);color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M8 10l2 2 4-4"/></svg></div>
+          <h3 data-i="a4"></h3>
+          <p class="tagline" data-i="a4t"></p>
+          <p data-i="a4d"></p>
+          <ul><li data-i="a4a"></li><li data-i="a4b"></li><li><span data-i="a4c"></span> <span class="soon" data-i="soon"></span></li></ul>
+        </div>
+        <div class="vis"><div class="panel">
+          <h3 data-i="qa_title"></h3>
+          <div class="chk"><span data-i="qa1"></span><b>✓ OK</b></div>
+          <div class="chk"><span data-i="qa2"></span><b>✓ OK</b></div>
+          <div class="chk"><span data-i="qa3"></span><b class="bad" data-i="qa_err"></b></div>
+          <div class="chk"><span data-i="qa4"></span><b>✓ OK</b></div>
+          <p class="note" data-i="qa_note"></p>
+        </div></div>
+      </div>
+
+      <div class="area" id="hr">
+        <div class="txt">
+          <div class="icon" style="background:#F1EAFD;color:#7444D6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M17 11l1.5 1.5L21.5 9"/></svg></div>
+          <h3 data-i="a5"></h3>
+          <p class="tagline" data-i="a5t"></p>
+          <p data-i="a5d"></p>
+          <ul><li data-i="a5a"></li><li data-i="a5b"></li><li data-i="a5c"></li></ul>
+        </div>
+        <div class="vis"><div class="panel">
+          <h3 data-i="cal_title"></h3>
+          <div class="who"><span class="av">MW</span><span data-i="cal1"></span><span class="ok">10:00</span></div>
+          <div class="who"><span class="av">AS</span><span data-i="cal2"></span><span class="ok">11:30</span></div>
+          <div class="who"><span class="av">TK</span><span data-i="cal3"></span><span class="ok">14:00</span></div>
+          <p class="note" data-i="cal_note"></p>
+        </div></div>
+      </div>
+
+      <div class="area" id="most">
+        <div class="txt">
+          <div class="icon" style="background:#FFE9E7;color:#D0453B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20M5 17V9M19 17V9M2 9c3 0 5-3 10-3s7 3 10 3M9 17v-4.5M15 17v-4.5"/></svg></div>
+          <h3 data-i="a6"></h3>
+          <p class="tagline" data-i="a6t"></p>
+          <p data-i="a6d"></p>
+          <ul><li data-i="a6a"></li><li data-i="a6b"></li><li data-i="a6c"></li></ul>
+        </div>
+        <div class="vis"><div class="panel">
+          <h3 data-i="doc_title"></h3>
+          <div class="flags"><span>PL</span><span>RU</span><span>UA</span><span>EN</span></div>
+          <div class="chk"><span data-i="doc1"></span><b>✓</b></div>
+          <div class="chk"><span data-i="doc2"></span><b>✓</b></div>
+          <div class="chk"><span data-i="doc3"></span><b>✓</b></div>
+          <div class="chk"><span data-i="doc4"></span><b>✓</b></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="steps" id="proces">
+  <div class="wrap">
+    <h2 data-i="w_title"></h2>
+    <p class="intro" data-i="w_intro"></p>
+    <div class="flow">
+      <div class="step"><div class="n">1</div><h3 data-i="w1"></h3><p data-i="w1d"></p></div>
+      <div class="step"><div class="n">2</div><h3 data-i="w2"></h3><p data-i="w2d"></p></div>
+      <div class="step"><div class="n">3</div><h3 data-i="w3"></h3><p data-i="w3d"></p></div>
+      <div class="step"><div class="n">4</div><h3 data-i="w4"></h3><p data-i="w4d"></p></div>
+    </div>
+  </div>
+</div>
+
+<div class="packs-sec" id="oferta">
+  <div class="wrap">
     <h2 data-i="p_title"></h2>
     <p class="intro" data-i="p_intro"></p>
     <div class="packs">
       <div class="pack">
-        <span class="tag" data-i="p1_tag"></span>
-        <h3 data-i="p1"></h3>
-        <p class="time" data-i="p1_time"></p>
+        <span class="tag" data-i="p1_tag"></span><h3 data-i="p1"></h3><p class="time" data-i="p1_time"></p>
         <ul><li data-i="p1_a"></li><li data-i="p1_b"></li><li data-i="p1_c"></li></ul>
         <p class="res"><span data-i="res"></span><span data-i="p1_res"></span></p>
       </div>
       <div class="pack main">
-        <span class="tag" data-i="p2_tag"></span>
-        <h3 data-i="p2"></h3>
-        <p class="time" data-i="p2_time"></p>
+        <span class="tag" data-i="p2_tag"></span><h3 data-i="p2"></h3><p class="time" data-i="p2_time"></p>
         <ul><li data-i="p2_a"></li><li data-i="p2_b"></li><li data-i="p2_c"></li></ul>
         <p class="res"><span data-i="res"></span><span data-i="p2_res"></span></p>
       </div>
       <div class="pack">
-        <span class="tag" data-i="p3_tag"></span>
-        <h3 data-i="p3"></h3>
-        <p class="time" data-i="p3_time"></p>
+        <span class="tag" data-i="p3_tag"></span><h3 data-i="p3"></h3><p class="time" data-i="p3_time"></p>
         <ul><li data-i="p3_a"></li><li data-i="p3_b"></li><li data-i="p3_c"></li></ul>
         <p class="res"><span data-i="res"></span><span data-i="p3_res"></span></p>
       </div>
     </div>
     <p class="price" data-i="price"></p>
-  </section>
+  </div>
+</div>
 
-  <section class="about" id="about">
-    <h2 data-i="a_title"></h2>
-    <div>
-      <p data-i="a1"></p>
-      <p data-i="a2"></p>
-      <ul class="facts">
-        <li data-i="f1"></li><li data-i="f2"></li><li data-i="f3"></li><li data-i="f4"></li>
-      </ul>
+<div class="about" id="o-mnie">
+  <div class="wrap">
+    <div class="card-me">
+      <div class="big">AM</div>
+      <h3>Aliaksandr Makaranka</h3>
+      <p data-i="me_role"></p>
+      <ul class="chips"><li data-i="f1"></li><li data-i="f2"></li><li data-i="f3"></li><li data-i="f4"></li><li>PL · EN · RU</li></ul>
     </div>
-  </section>
+    <div>
+      <h2 data-i="ab_title"></h2>
+      <p data-i="ab1"></p>
+      <p data-i="ab2"></p>
+      <p data-i="ab3"></p>
+      <div class="proj">
+        <a href="https://github.com/AliaksandrMakaranka/demoqa"><b>demoqa</b><span data-i="pr1"></span></a>
+        <a href="https://github.com/AliaksandrMakaranka/task-api"><b>task-api</b><span data-i="pr2"></span></a>
+        <a href="https://github.com/AliaksandrMakaranka/hr_project"><b>hr_project</b><span data-i="pr3"></span></a>
+        <a href="https://github.com/AliaksandrMakaranka/Parser"><b>Parser</b><span data-i="pr4"></span></a>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div class="cta" id="contact">
+<div class="faq">
+  <div class="wrap">
+    <h2 data-i="q_title"></h2>
+    <details><summary data-i="q1"></summary><p data-i="q1a"></p></details>
+    <details><summary data-i="q2"></summary><p data-i="q2a"></p></details>
+    <details><summary data-i="q3"></summary><p data-i="q3a"></p></details>
+    <details><summary data-i="q4"></summary><p data-i="q4a"></p></details>
+    <details><summary data-i="q5"></summary><p data-i="q5a"></p></details>
+  </div>
+</div>
+
+<div class="wrap" id="kontakt">
+  <div class="cta">
     <div><h2 data-i="c_title"></h2><p data-i="c_sub"></p></div>
     <div class="links">
       <a href="https://www.linkedin.com/in/aliaksandr-makaranka">LinkedIn</a>
       <a href="https://github.com/AliaksandrMakaranka">GitHub</a>
     </div>
   </div>
-  <footer>© 2026 Aliaksandr Makaranka</footer>
 </div>
 
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="logo" href="#" style="color:#fff"><i>AM</i> Aliaksandr Makaranka</a>
+        <p data-i="ft_about"></p>
+      </div>
+      <div>
+        <h4 data-i="m1"></h4>
+        <ul><li><a href="#uslugi" data-i="a1"></a></li><li><a href="#uslugi" data-i="a2"></a></li><li><a href="#hr" data-i="a5"></a></li><li><a href="#most" data-i="ft_bridge"></a></li></ul>
+      </div>
+      <div>
+        <h4 data-i="m5"></h4>
+        <ul><li><a href="https://www.linkedin.com/in/aliaksandr-makaranka">LinkedIn</a></li><li><a href="https://github.com/AliaksandrMakaranka">GitHub</a></li></ul>
+      </div>
+    </div>
+    <div class="copy">© 2026 Aliaksandr Makaranka · <span data-i="ft_remote"></span></div>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
 <script>
-var T = {
-pl: {
-  title:"Aliaksandr Makaranka · Automatyzacja procesów, boty, HR",
-  h1:"Oddaj rutynę automatom. Twój zespół zajmie się klientami.",
-  lead:"Jestem menedżerem, wcześniej programistą i inżynierem automatyzacji testów. Automatyzuję powtarzalne procesy w firmach, tworzę boty i wspieram rekrutację.",
-  remote:"Pracuję wyłącznie zdalnie, z firmami z całej Polski i Europy",
-  cta_talk:"Umów krótką rozmowę", cta_offer:"Zobacz ofertę",
-  week_title:"Przykładowy tydzień w biurze",
-  t1:"Przepisywanie zamówień do Excela", t2:"Cotygodniowy raport sprzedaży", t3:"Przeglądanie 80 CV",
-  t4:"Sprawdzanie cen konkurencji", t5:"Odpowiedzi na te same pytania klientów",
-  sum:"Odzyskany czas", sum_v:"~15 h tygodniowo",
-  week_note:"Przykładowe wartości. Realny wynik zależy od procesów w Twojej firmie.",
-  s_title:"Czym się zajmuję",
-  s_intro:"Zaczynam od problemu, nie od technologii. Wybieram narzędzie, które da efekt najszybciej.",
-  s1:"Automatyzacja procesów", s1d:"Raporty, zestawienia, przenoszenie danych między Excelem, Google Sheets, CRM i pocztą. Robi się samo, codziennie.",
-  s2:"Boty Telegram", s2d:"Przyjmowanie zamówień i zgłoszeń, powiadomienia dla zespołu, odpowiedzi na częste pytania klientów.",
-  s3:"Analiza konkurencji", s3d:"Monitoring cen, ofert i nowości u konkurentów. Zestawienie w arkuszu lub raport co tydzień.",
-  s4:"Wdrażanie nowych funkcji", s4d:"Nowe możliwości na stronie, w sklepie lub w systemie firmy: formularze, integracje, płatności.",
-  s5:"Testy i kontrola jakości", s5d:"Automatyczne sprawdzanie, czy działa koszyk, formularze i logowanie. Raport, gdy coś przestanie działać.",
-  s6:"AI w firmie", s6d:"Opisy produktów, odpowiedzi na maile, analiza opinii klientów. AI robi szkic, człowiek zatwierdza.",
-  s7:"Wsparcie HR i rekrutacji", s7d:"Ogłoszenia, selekcja CV, umawianie rozmów, plan onboardingu nowych pracowników.",
-  s8:"Porządek w procesach", s8d:"Opis, kto co robi i w jakiej kolejności. Instrukcje dla zespołu, mniej pytań i błędów.",
-  s9:"Most między Polską a zespołami z Ukrainy, Białorusi i innych krajów", s9d:"Mówię po polsku, rosyjsku i angielsku. Pomagam polskim firmom współpracować z pracownikami i wykonawcami z Ukrainy i Białorusi: komunikacja, wdrożenie do pracy, instrukcje w zrozumiałym języku, koordynacja zadań.",
-  p_title:"Jak możemy zacząć", p_intro:"Trzy formy współpracy. Najczęściej zaczynamy od przeglądu, żeby nie płacić za to, czego nie potrzebujesz.",
-  p1_tag:"Na start", p1:"Przegląd procesów", p1_time:"1–2 rozmowy online",
-  p1_a:"Rozmowa z Tobą i zespołem", p1_b:"Lista zadań, które da się zautomatyzować", p1_c:"Szacunek oszczędności czasu",
-  p1_res:"Krótki raport z priorytetami",
-  p2_tag:"Najczęściej wybierane", p2:"Automatyzacja lub bot", p2_time:"2–4 tygodnie",
-  p2_a:"Wybieramy proces, który zabiera najwięcej czasu", p2_b:"Wdrażam rozwiązanie: raport, integrację lub bota", p2_c:"Instrukcja dla zespołu i miesiąc wsparcia",
-  p2_res:"Proces działa sam, zespół odzyskuje godziny",
-  p3_tag:"HR i zespół", p3:"Rekrutacja i wdrożenie", p3_time:"od 2 tygodni",
-  p3_a:"Szablony ogłoszeń i kryteria selekcji", p3_b:"Automatyczne umawianie rozmów", p3_c:"Onboarding, także dla osób mówiących po rosyjsku i ukraińsku",
-  p3_res:"Szybsze zatrudnianie, mniej chaosu",
-  res:"Wynik", soon:"w przygotowaniu",
-  price:"Cenę ustalam indywidualnie, po pierwszej rozmowie. Pierwsza rozmowa jest bezpłatna.",
-  a_title:"Dlaczego ja",
-  a1:"Znam obie strony: przez lata pisałem kod w Javie i automatyczne testy, a dziś zarządzam ludźmi i procesami, w tym rekrutacją. Rozumiem, co warto zautomatyzować, a co lepiej zostawić człowiekowi.",
-  a2:"Proponuję jedno konkretne usprawnienie, które da efekt w ciągu tygodni, nie miesięcy. Pracuję zdalnie, więc spotykamy się online w dogodnym czasie.",
-  f1:"Były programista Java", f2:"Automatyzacja testów", f3:"Zarządzanie i HR", f4:"PL · EN · RU",
-  c_title:"Masz proces, który zjada godziny?", c_sub:"Napisz, porozmawiamy online. Odpowiadam po polsku, angielsku i rosyjsku."
-},
-en: {
-  title:"Aliaksandr Makaranka · Process automation, bots, HR",
-  h1:"Hand the routine to automation. Your team handles the clients.",
-  lead:"I'm a manager and former software developer and QA automation engineer. I automate repetitive business processes, build bots and support recruitment.",
-  remote:"Remote only, working with companies across Poland and Europe",
-  cta_talk:"Book a short call", cta_offer:"See the offer",
-  week_title:"A typical office week",
-  t1:"Copying orders into Excel", t2:"Weekly sales report", t3:"Screening 80 CVs",
-  t4:"Checking competitor prices", t5:"Answering the same client questions",
-  sum:"Time saved", sum_v:"~15 h a week",
-  week_note:"Example values. Real results depend on your company's processes.",
-  s_title:"What I do",
-  s_intro:"I start from the problem, not the technology, and pick the tool that gives results fastest.",
-  s1:"Process automation", s1d:"Reports, summaries and data transfer between Excel, Google Sheets, CRM and e-mail. Done automatically, every day.",
-  s2:"Telegram bots", s2d:"Taking orders and requests, team notifications, answers to frequent customer questions.",
-  s3:"Competitor analysis", s3d:"Tracking competitors' prices, offers and new products. A spreadsheet or a weekly report.",
-  s4:"New features", s4d:"New functions on your website, online store or internal system: forms, integrations, payments.",
-  s5:"Testing and quality control", s5d:"Automated checks that the cart, forms and login work, with a report when something breaks.",
-  s6:"AI for your business", s6d:"Product descriptions, e-mail replies, customer review analysis. AI drafts, a person approves.",
-  s7:"HR and recruitment support", s7d:"Job ads, CV screening, interview scheduling, onboarding plans for new hires.",
-  s8:"Process clean-up", s8d:"A clear description of who does what and when. Team instructions, fewer questions and mistakes.",
-  s9:"A bridge between Polish companies and teams from Ukraine, Belarus and beyond", s9d:"I speak Polish, Russian and English. I help Polish companies work with employees and contractors from Ukraine and Belarus: communication, onboarding, instructions people understand, task coordination.",
-  p_title:"How we can start", p_intro:"Three ways to work together. Most clients start with a review, so you don't pay for what you don't need.",
-  p1_tag:"To start", p1:"Process review", p1_time:"1–2 online calls",
-  p1_a:"A talk with you and your team", p1_b:"A list of tasks that can be automated", p1_c:"An estimate of time saved",
-  p1_res:"A short report with priorities",
-  p2_tag:"Most popular", p2:"Automation or a bot", p2_time:"2–4 weeks",
-  p2_a:"We pick the process that takes the most time", p2_b:"I build the solution: a report, an integration or a bot", p2_c:"Team instructions and one month of support",
-  p2_res:"The process runs by itself, the team gets hours back",
-  p3_tag:"HR and team", p3:"Recruitment and onboarding", p3_time:"from 2 weeks",
-  p3_a:"Job ad templates and screening criteria", p3_b:"Automated interview scheduling", p3_c:"Onboarding, including Russian and Ukrainian speakers",
-  p3_res:"Faster hiring, less chaos",
-  res:"Result", soon:"coming soon",
-  price:"Pricing is individual and agreed after the first call. The first call is free.",
-  a_title:"Why me",
-  a1:"I know both sides: for years I wrote Java code and automated tests, and today I manage people and processes, including recruitment. I know what is worth automating and what is better left to a person.",
-  a2:"I propose one concrete improvement that pays off in weeks, not months. I work remotely, so we meet online at a time that suits you.",
-  f1:"Former Java developer", f2:"Test automation", f3:"Management and HR", f4:"PL · EN · RU",
-  c_title:"Got a process that eats hours?", c_sub:"Write to me and we'll talk online. I reply in Polish, English and Russian."
-},
-ru: {
-  title:"Aliaksandr Makaranka · Автоматизация процессов, боты, HR",
-  h1:"Отдайте рутину автоматике. Ваша команда займётся клиентами.",
-  lead:"Я менеджер, в прошлом программист и инженер по автоматизации тестирования. Автоматизирую повторяющиеся процессы в компаниях, делаю ботов и помогаю с подбором персонала.",
-  remote:"Работаю только удалённо, с компаниями по всей Польше и Европе",
-  cta_talk:"Договориться о звонке", cta_offer:"Смотреть предложение",
-  week_title:"Обычная неделя в офисе",
-  t1:"Перенос заказов в Excel", t2:"Еженедельный отчёт о продажах", t3:"Разбор 80 резюме",
-  t4:"Проверка цен конкурентов", t5:"Ответы на одни и те же вопросы клиентов",
-  sum:"Сэкономлено", sum_v:"~15 ч в неделю",
-  week_note:"Цифры для примера. Реальный результат зависит от процессов в вашей компании.",
-  s_title:"Чем я занимаюсь",
-  s_intro:"Начинаю с проблемы, а не с технологии, и выбираю инструмент, который даст результат быстрее всего.",
-  s1:"Автоматизация процессов", s1d:"Отчёты, сводки, перенос данных между Excel, Google Sheets, CRM и почтой. Делается само, каждый день.",
-  s2:"Telegram-боты", s2d:"Приём заказов и заявок, уведомления для команды, ответы на частые вопросы клиентов.",
-  s3:"Анализ конкурентов", s3d:"Отслеживание цен, предложений и новинок у конкурентов. Таблица или отчёт раз в неделю.",
-  s4:"Внедрение новых функций", s4d:"Новые возможности на сайте, в интернет-магазине или в системе компании: формы, интеграции, оплата.",
-  s5:"Тестирование и контроль качества", s5d:"Автоматическая проверка корзины, форм и входа на сайт. Отчёт, если что-то сломалось.",
-  s6:"AI для бизнеса", s6d:"Описания товаров, ответы на письма, анализ отзывов. AI делает черновик, человек утверждает.",
-  s7:"HR и подбор персонала", s7d:"Вакансии, отбор резюме, назначение собеседований, план адаптации новых сотрудников.",
-  s8:"Порядок в процессах", s8d:"Описание, кто что делает и в каком порядке. Инструкции для команды, меньше вопросов и ошибок.",
-  s9:"Мост между Польшей и командами из Украины, Беларуси и других стран", s9d:"Говорю по-польски, по-русски и по-английски. Помогаю польским компаниям работать с сотрудниками и подрядчиками из Украины и Беларуси: коммуникация, вхождение в работу, понятные инструкции, координация задач.",
-  p_title:"С чего начать", p_intro:"Три формата сотрудничества. Чаще всего начинаем с обзора, чтобы вы не платили за ненужное.",
-  p1_tag:"Для старта", p1:"Обзор процессов", p1_time:"1–2 онлайн-встречи",
-  p1_a:"Разговор с вами и командой", p1_b:"Список задач, которые можно автоматизировать", p1_c:"Оценка экономии времени",
-  p1_res:"Короткий отчёт с приоритетами",
-  p2_tag:"Чаще всего выбирают", p2:"Автоматизация или бот", p2_time:"2–4 недели",
-  p2_a:"Выбираем процесс, который отнимает больше всего времени", p2_b:"Внедряю решение: отчёт, интеграцию или бота", p2_c:"Инструкция для команды и месяц поддержки",
-  p2_res:"Процесс работает сам, команда получает часы обратно",
-  p3_tag:"HR и команда", p3:"Подбор и адаптация", p3_time:"от 2 недель",
-  p3_a:"Шаблоны вакансий и критерии отбора", p3_b:"Автоматическое назначение собеседований", p3_c:"Адаптация, в том числе для русско- и украиноязычных сотрудников",
-  p3_res:"Быстрее нанимать, меньше хаоса",
-  res:"Результат", soon:"в разработке",
-  price:"Стоимость обсуждается индивидуально после первого разговора. Первый разговор бесплатный.",
-  a_title:"Почему я",
-  a1:"Я знаю обе стороны: годами писал код на Java и автотесты, а сейчас управляю людьми и процессами, включая подбор персонала. Понимаю, что стоит автоматизировать, а что лучше оставить человеку.",
-  a2:"Предлагаю одно конкретное улучшение, которое окупится за недели, а не месяцы. Работаю удалённо, встречаемся онлайн в удобное для вас время.",
-  f1:"Бывший Java-разработчик", f2:"Автоматизация тестирования", f3:"Менеджмент и HR", f4:"PL · EN · RU",
-  c_title:"Есть процесс, который съедает часы?", c_sub:"Напишите мне, обсудим онлайн. Отвечаю на польском, английском и русском."
-}
-};
 (function () {
   var buttons = document.querySelectorAll('[data-set-lang]');
   function setLang(lang, remember) {
@@ -339,6 +513,22 @@ ru: {
   var nav = (navigator.language || 'pl').slice(0, 2).toLowerCase();
   var guess = nav === 'pl' ? 'pl' : (['ru', 'uk', 'be'].indexOf(nav) >= 0 ? 'ru' : (nav === 'en' ? 'en' : 'pl'));
   setLang(fromUrl || saved || guess, false);
+
+  var slides = document.querySelectorAll('.slide'), dots = document.querySelectorAll('.dots span'), i = 0, timer;
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach(function (s, k) { s.classList.toggle('on', k === i); s.setAttribute('aria-hidden', String(k !== i)); });
+    dots.forEach(function (d, k) { d.classList.toggle('on', k === i); });
+  }
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function auto() { clearInterval(timer); if (!still) timer = setInterval(function () { show(i + 1); }, 7000); }
+  document.getElementById('prev').addEventListener('click', function () { show(i - 1); auto(); });
+  document.getElementById('next').addEventListener('click', function () { show(i + 1); auto(); });
+  var hero = document.querySelector('.hero');
+  hero.addEventListener('mouseenter', function () { clearInterval(timer); });
+  hero.addEventListener('mouseleave', auto);
+  hero.addEventListener('focusin', function () { clearInterval(timer); });
+  show(0); auto();
 })();
 </script>
 </body>
