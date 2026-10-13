@@ -131,11 +131,6 @@
   .chips { display:flex; flex-wrap:wrap; gap:.45rem; justify-content:center; padding:0; margin:0; list-style:none; }
   .chips li { font-size:.85rem; padding:.25rem .7rem; border:1px solid #3A4878; border-radius:999px; color:#DDE3F5; }
   .about p { color:#C5CDE6; margin:0 0 1rem; }
-  .proj { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-top:1.5rem; }
-  .proj a { display:block; text-decoration:none; background:var(--night2); border-radius:12px; padding:.9rem 1rem; }
-  .proj a:hover { background:#1D2B5E; }
-  .proj b { display:block; color:#fff; }
-  .proj span { color:#AEB8D6; font-size:.88rem; }
 
   .faq { padding:4.5rem 0; }
   .faq .wrap { max-width:50rem; }
@@ -170,7 +165,7 @@
   }
   @media (max-width:600px) {
     .top .logo span { display:none; }
-    .flow, .packs, .proj { grid-template-columns:1fr; }
+    .flow, .packs { grid-template-columns:1fr; }
     .btn.ghost { margin:.6rem 0 0; }
     .cta { padding:2rem 1.4rem; }
     .pipe { grid-template-columns:1fr 1fr; }
@@ -435,12 +430,7 @@
       <p data-i="ab1"></p>
       <p data-i="ab2"></p>
       <p data-i="ab3"></p>
-      <div class="proj">
-        <a href="https://github.com/AliaksandrMakaranka/demoqa"><b>demoqa</b><span data-i="pr1"></span></a>
-        <a href="https://github.com/AliaksandrMakaranka/task-api"><b>task-api</b><span data-i="pr2"></span></a>
-        <a href="https://github.com/AliaksandrMakaranka/hr_project"><b>hr_project</b><span data-i="pr3"></span></a>
-        <a href="https://github.com/AliaksandrMakaranka/Parser"><b>Parser</b><span data-i="pr4"></span></a>
-      </div>
+      <!-- TODO: сюда добавить новый текст «Обо мне» (см. docs/ideas.md) -->
     </div>
   </div>
 </div>
