@@ -9,10 +9,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* ─── Цвета сайта. Поменять цвет здесь = поменять его везде ─── */
   :root {
     --night:#0E1630; --night2:#16214A; --bg:#FFFFFF; --soft:#F3F5FA; --ink:#1A2032; --mute:#5F6880;
     --rule:#E3E6EE; --blue:#2F5BEA; --blue-soft:#E9EFFE; --sun:#FFB547; --green:#22A061; --green-soft:#E3F5EB;
   }
+  /* ─── Общие стили ─── */
   * { box-sizing:border-box; }
   html { scroll-behavior:smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
@@ -23,6 +25,7 @@
   h2 { font-size:clamp(1.6rem,3.5vw,2.2rem); line-height:1.15; letter-spacing:-.02em; margin:0 0 .6rem; font-weight:800; }
   .intro { color:var(--mute); font-size:1.1rem; max-width:42rem; margin:0 0 2.5rem; }
 
+  /* ─── Шапка ─── */
   .top { position:sticky; top:0; z-index:10; background:rgba(14,22,48,.92); backdrop-filter:blur(8px); color:#fff; }
   .top .wrap { display:flex; align-items:center; justify-content:space-between; gap:1rem; height:64px; }
   .logo { display:flex; align-items:center; gap:.6rem; text-decoration:none; font-weight:800; }
@@ -34,6 +37,7 @@
   .lang button { font:inherit; font-size:.85rem; font-weight:600; border:0; background:none; color:#C5CDE6; padding:.3rem .75rem; cursor:pointer; }
   .lang button[aria-pressed="true"] { background:#fff; color:var(--night); }
 
+  /* ─── Первый экран: слайдер и карточки-примеры ─── */
   .hero { background:radial-gradient(ellipse at 80% 0%, #24357A 0%, transparent 55%), var(--night); color:#fff; overflow:hidden; }
   .slides { position:relative; display:grid; }
   .slide { grid-area:1/1; display:grid; grid-template-columns:1.1fr 1fr; gap:3rem; align-items:center; padding:3.5rem 0 5rem;
@@ -69,11 +73,13 @@
   .bub.r { background:var(--blue); color:#fff; margin-left:auto; border-bottom-right-radius:4px; }
   .bub small { display:block; opacity:.75; font-size:.75rem; margin-bottom:.15rem; }
 
+  /* ─── Статистика ─── */
   .stats { background:var(--night2); color:#fff; }
   .stats .wrap { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; padding-top:1.6rem; padding-bottom:1.6rem; }
   .stats b { display:block; font-size:2rem; font-weight:800; color:var(--sun); line-height:1.1; }
   .stats span { color:#C5CDE6; font-size:.95rem; }
 
+  /* ─── Услуги ─── */
   .areas { padding:5rem 0 2rem; }
   .area { display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:center; padding:3rem 0; border-top:1px solid var(--rule); }
   .area:nth-child(even) .txt { order:2; }
@@ -101,6 +107,7 @@
   .flags { display:flex; gap:.5rem; margin-bottom:.6rem; font-size:.8rem; font-weight:700; }
   .flags span { background:var(--blue-soft); color:var(--blue); padding:.1rem .55rem; border-radius:999px; }
 
+  /* ─── Как я работаю ─── */
   .steps { background:var(--soft); padding:4.5rem 0; }
   .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; }
   .step { background:#fff; border-radius:16px; padding:1.4rem; }
@@ -108,6 +115,7 @@
   .step h3 { margin:0 0 .3rem; font-size:1.1rem; }
   .step p { margin:0; color:var(--mute); font-size:.97rem; }
 
+  /* ─── С чего начать ─── */
   .packs-sec { padding:4.5rem 0; }
   .packs { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
   .pack { border:1px solid var(--rule); border-radius:16px; padding:1.6rem; display:flex; flex-direction:column; }
@@ -122,6 +130,7 @@
   .pack .res span + span { font-weight:400; color:var(--mute); font-size:.92rem; }
   .price { margin:1.4rem 0 0; color:var(--mute); }
 
+  /* ─── Обо мне ─── */
   .about { background:var(--night); color:#fff; padding:4.5rem 0; }
   .about .wrap { display:grid; grid-template-columns:1fr 1.4fr; gap:3rem; align-items:start; }
   .card-me { background:var(--night2); border-radius:20px; padding:1.75rem; text-align:center; }
@@ -132,6 +141,7 @@
   .chips li { font-size:.85rem; padding:.25rem .7rem; border:1px solid #3A4878; border-radius:999px; color:#DDE3F5; }
   .about p { color:#C5CDE6; margin:0 0 1rem; }
 
+  /* ─── Частые вопросы ─── */
   .faq { padding:4.5rem 0; }
   .faq .wrap { max-width:50rem; }
   details { border-bottom:1px solid var(--rule); padding:1.1rem 0; }
@@ -141,6 +151,7 @@
   details[open] summary::after { content:"–"; }
   details p { color:var(--mute); margin:.7rem 0 0; }
 
+  /* ─── Контакт и подвал ─── */
   .cta { background:linear-gradient(120deg,var(--blue),#5B7BFF); color:#fff; border-radius:24px; padding:3rem; display:flex; justify-content:space-between; align-items:center; gap:2rem; flex-wrap:wrap; margin:0 0 4rem; }
   .cta h2 { margin:0; }
   .cta p { margin:.4rem 0 0; color:#E3E9FF; }
@@ -154,6 +165,7 @@
   footer a { text-decoration:none; } footer a:hover { color:#fff; }
   footer .copy { border-top:1px solid #26325C; margin-top:2rem; padding-top:1.25rem; font-size:.85rem; }
 
+  /* ─── Планшет и телефон: перестройка в одну-две колонки ─── */
   @media (max-width:900px) {
     .menu { display:none; }
     .slide { grid-template-columns:1fr; gap:2rem; padding:2.5rem 0 5rem; }
@@ -176,6 +188,7 @@
 </head>
 <body>
 
+<!-- ═════════ ШАПКА: логотип, меню, переключатель языка (PL/EN/RU) ═════════ -->
 <div class="top">
   <div class="wrap">
     <a class="logo" href="#"><i>AM</i><span>Aliaksandr Makaranka</span></a>
@@ -190,8 +203,10 @@
   </div>
 </div>
 
+<!-- ═════════ ПЕРВЫЙ ЭКРАН: слайдер. Тексты: i18n.js → раздел «Слайдер» ═════════ -->
 <div class="hero" aria-roledescription="carousel">
   <div class="wrap slides">
+    <!-- Слайд 1: автоматизация, карточка «Обычная неделя в офисе» -->
     <div class="slide on">
       <div>
         <p class="kicker" data-i="k1"></p>
@@ -210,6 +225,7 @@
       </div>
     </div>
 
+    <!-- Слайд 2: HR и подбор, воронка кандидатов -->
     <div class="slide">
       <div>
         <p class="kicker" data-i="k2"></p>
@@ -230,6 +246,7 @@
       </div>
     </div>
 
+    <!-- Слайд 3: мост PL ↔ UA/BY, чат команды -->
     <div class="slide">
       <div>
         <p class="kicker" data-i="k3"></p>
@@ -254,6 +271,7 @@
   </div>
 </div>
 
+<!-- ═════════ СТАТИСТИКА: 4 цифры под слайдером (100% / 3 / 6 / 75). Цифры прямо здесь, подписи в i18n.js st1–st4 ═════════ -->
 <div class="stats">
   <div class="wrap">
     <div><b>100%</b><span data-i="st1"></span></div>
@@ -263,12 +281,14 @@
   </div>
 </div>
 
+<!-- ═════════ УСЛУГИ (#uslugi): 6 блоков, каждый = текст + картинка-пример ═════════ -->
 <div class="areas" id="uslugi">
   <div class="wrap">
     <h2 data-i="s_title"></h2>
     <p class="intro" data-i="s_intro"></p>
 
     <div class="area-list">
+      <!-- Услуга 1: автоматизация процессов (a1…, rep…) -->
       <div class="area">
         <div class="txt">
           <div class="icon" style="background:var(--blue-soft);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3.5"/></svg></div>
@@ -286,6 +306,7 @@
         </div></div>
       </div>
 
+      <!-- Услуга 2: Telegram-боты и AI (a2…, bot…) -->
       <div class="area">
         <div class="txt">
           <div class="icon" style="background:#E6F4FB;color:#1B8BC6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 8-6"/></svg></div>
@@ -303,6 +324,7 @@
         </div></div>
       </div>
 
+      <!-- Услуга 3: анализ конкурентов (a3…, cmp…) -->
       <div class="area">
         <div class="txt">
           <div class="icon" style="background:#FFF3E2;color:#C77A0A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3M8 13l2-2 2 2 3-3"/></svg></div>
@@ -323,6 +345,7 @@
         </div></div>
       </div>
 
+      <!-- Услуга 4: сайты и тестирование, чекер магазина (a4…, qa…). План: Allure-отчёт -->
       <div class="area">
         <div class="txt">
           <div class="icon" style="background:var(--green-soft);color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M8 10l2 2 4-4"/></svg></div>
@@ -341,6 +364,7 @@
         </div></div>
       </div>
 
+      <!-- Услуга 5: HR и подбор (a5…, cal…) -->
       <div class="area" id="hr">
         <div class="txt">
           <div class="icon" style="background:#F1EAFD;color:#7444D6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M17 11l1.5 1.5L21.5 9"/></svg></div>
@@ -358,6 +382,7 @@
         </div></div>
       </div>
 
+      <!-- Услуга 6: мост PL ↔ UA/BY (a6…, doc…) -->
       <div class="area" id="most">
         <div class="txt">
           <div class="icon" style="background:#FFE9E7;color:#D0453B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h20M5 17V9M19 17V9M2 9c3 0 5-3 10-3s7 3 10 3M9 17v-4.5M15 17v-4.5"/></svg></div>
@@ -379,6 +404,7 @@
   </div>
 </div>
 
+<!-- ═════════ КАК Я РАБОТАЮ (#proces): 4 шага (w1–w4) ═════════ -->
 <div class="steps" id="proces">
   <div class="wrap">
     <h2 data-i="w_title"></h2>
@@ -392,6 +418,7 @@
   </div>
 </div>
 
+<!-- ═════════ С ЧЕГО НАЧАТЬ (#oferta): 3 формата (p1–p3). План: сделать карточки ссылками на отдельные страницы ═════════ -->
 <div class="packs-sec" id="oferta">
   <div class="wrap">
     <h2 data-i="p_title"></h2>
@@ -417,6 +444,7 @@
   </div>
 </div>
 
+<!-- ═════════ ОБО МНЕ (#o-mnie): карточка слева + текст (ab1–ab3) ═════════ -->
 <div class="about" id="o-mnie">
   <div class="wrap">
     <div class="card-me">
@@ -435,6 +463,7 @@
   </div>
 </div>
 
+<!-- ═════════ ЧАСТЫЕ ВОПРОСЫ: q1–q5. Новый вопрос = добавить <details> здесь + qN/qNa в i18n.js на 3 языках ═════════ -->
 <div class="faq">
   <div class="wrap">
     <h2 data-i="q_title"></h2>
@@ -446,6 +475,7 @@
   </div>
 </div>
 
+<!-- ═════════ КОНТАКТ (#kontakt): синий блок «Есть процесс…». План: рабочий номер ═════════ -->
 <div class="wrap" id="kontakt">
   <div class="cta">
     <div><h2 data-i="c_title"></h2><p data-i="c_sub"></p></div>
@@ -456,6 +486,7 @@
   </div>
 </div>
 
+<!-- ═════════ ПОДВАЛ ═════════ -->
 <footer>
   <div class="wrap">
     <div class="cols">
@@ -478,7 +509,9 @@
 
 <script src="i18n.js"></script>
 <script>
+/* ЛОГИКА СТРАНИЦЫ. Тексты сюда не писать — они в i18n.js */
 (function () {
+  // 1. Языки: берём текст из T[язык] для каждого элемента с data-i="ключ"
   var buttons = document.querySelectorAll('[data-set-lang]');
   function setLang(lang, remember) {
     if (!T[lang]) lang = 'pl';
@@ -498,12 +531,15 @@
       try { history.replaceState(null, '', '?lang=' + b.dataset.setLang + location.hash); } catch (e) {}
     });
   });
+  // Какой язык показать: ?lang= в адресе → выбор посетителя → язык браузера → польский
   var fromUrl = new URLSearchParams(location.search).get('lang');
   var saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
   var nav = (navigator.language || 'pl').slice(0, 2).toLowerCase();
   var guess = nav === 'pl' ? 'pl' : (['ru', 'uk', 'be'].indexOf(nav) >= 0 ? 'ru' : (nav === 'en' ? 'en' : 'pl'));
   setLang(fromUrl || saved || guess, false);
 
+
+  // 2. Слайдер: кнопки ‹ ›, точки, автопрокрутка каждые 7 секунд (пауза под мышкой)
   var slides = document.querySelectorAll('.slide'), dots = document.querySelectorAll('.dots span'), i = 0, timer;
   function show(n) {
     i = (n + slides.length) % slides.length;
