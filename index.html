@@ -46,8 +46,11 @@
   /* Выравнивание: все слайды одной высоты (по самому высокому), заголовок сверху,
      кнопки прижаты к низу, карточка справа прижата к верху — при переключении ничего не прыгает */
   .stxt { display:flex; flex-direction:column; align-items:flex-start; }
-  .slide > .panel { align-self:start; }
-  .acts { margin-top:auto; display:flex; flex-wrap:nowrap; gap:.6rem; }
+  /* Карточка справа: на всех слайдах одной высоты, содержимое по центру */
+  .slide > .panel { align-self:stretch; display:flex; flex-direction:column; justify-content:center; }
+  /* Кнопки: на каждом слайде две, одинаковой ширины */
+  .acts { margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:.6rem; width:100%; max-width:34rem; }
+  .acts .btn { text-align:center; padding-left:.8rem; padding-right:.8rem; }
   .kicker { color:var(--sun); font-weight:700; margin:0 0 .75rem; }
   .slide h1, .slide .h1 { font-size:clamp(2.1rem,5vw,3.3rem); line-height:1.06; letter-spacing:-.025em; margin:0 0 1rem; font-weight:800; }
   .slide p.sub { color:#C5CDE6; font-size:1.15rem; margin:0 0 1.75rem; max-width:34rem; }
@@ -173,7 +176,7 @@
   /* ─── Планшет и телефон: перестройка в одну-две колонки ─── */
   @media (max-width:900px) {
     .menu { display:none; }
-    .acts { flex-wrap:wrap; }
+    .slide > .panel { align-self:start; }
     .slide { align-content:start; grid-template-columns:1fr; gap:2rem; padding:2.5rem 0 5rem; }
     .area, .about .wrap { grid-template-columns:1fr; gap:2rem; }
     .area:nth-child(even) .txt { order:0; }
@@ -182,6 +185,7 @@
     footer .cols { grid-template-columns:1fr 1fr; }
   }
   @media (max-width:600px) {
+    .acts { grid-template-columns:1fr; max-width:none; }
     .top .logo span { display:none; }
     .flow, .packs { grid-template-columns:1fr; }
     .cta { padding:2rem 1.4rem; }
@@ -236,7 +240,7 @@
         <p class="kicker" data-i="k2"></p>
         <p class="h1" data-i="h2s"></p>
         <p class="sub" data-i="sub2"></p>
-        <div class="acts"><a class="btn sun" href="#hr" data-i="more"></a></div>
+        <div class="acts"><a class="btn sun" href="#kontakt" data-i="cta_talk"></a><a class="btn ghost" href="#hr" data-i="more"></a></div>
       </div>
       <div class="panel">
         <h3 data-i="pipe_title"></h3>
@@ -257,7 +261,7 @@
         <p class="kicker" data-i="k3"></p>
         <p class="h1" data-i="h3s"></p>
         <p class="sub" data-i="sub3"></p>
-        <div class="acts"><a class="btn sun" href="#most" data-i="more"></a></div>
+        <div class="acts"><a class="btn sun" href="#kontakt" data-i="cta_talk"></a><a class="btn ghost" href="#most" data-i="more"></a></div>
       </div>
       <div class="panel">
         <h3 data-i="chat_title"></h3>
@@ -560,12 +564,14 @@
   hero.addEventListener('mouseleave', auto);
   hero.addEventListener('focusin', function () { clearInterval(timer); });
   // На телефоне слайды идут в одну колонку: выравниваем высоту текстовой части
-  // по самому длинному слайду, чтобы карточка под текстом не прыгала
+  // и карточки по самому длинному слайду, чтобы всё было одного размера
   function equalize() {
-    var t = document.querySelectorAll('.stxt'), m = 0;
-    t.forEach(function (e) { e.style.minHeight = ''; });
-    t.forEach(function (e) { m = Math.max(m, e.offsetHeight); });
-    t.forEach(function (e) { e.style.minHeight = m + 'px'; });
+    ['.stxt', '.slide > .panel'].forEach(function (sel) {
+      var t = document.querySelectorAll(sel), m = 0;
+      t.forEach(function (e) { e.style.minHeight = ''; });
+      t.forEach(function (e) { m = Math.max(m, e.offsetHeight); });
+      t.forEach(function (e) { e.style.minHeight = m + 'px'; });
+    });
   }
   equalize();
   window.addEventListener('resize', equalize);
