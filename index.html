@@ -40,15 +40,20 @@
   /* ─── Первый экран: слайдер и карточки-примеры ─── */
   .hero { background:radial-gradient(ellipse at 80% 0%, #24357A 0%, transparent 55%), var(--night); color:#fff; overflow:hidden; }
   .slides { position:relative; display:grid; }
-  .slide { grid-area:1/1; display:grid; grid-template-columns:1.1fr 1fr; gap:3rem; align-items:center; padding:3.5rem 0 5rem;
+  .slide { grid-area:1/1; display:grid; grid-template-columns:1.3fr 1fr; gap:3rem; align-items:stretch; padding:3.5rem 0 5rem;
            opacity:0; visibility:hidden; transition:opacity .6s ease, visibility .6s; }
   .slide.on { opacity:1; visibility:visible; }
+  /* Выравнивание: все слайды одной высоты (по самому высокому), заголовок сверху,
+     кнопки прижаты к низу, карточка справа прижата к верху — при переключении ничего не прыгает */
+  .stxt { display:flex; flex-direction:column; align-items:flex-start; }
+  .slide > .panel { align-self:start; }
+  .acts { margin-top:auto; display:flex; flex-wrap:nowrap; gap:.6rem; }
   .kicker { color:var(--sun); font-weight:700; margin:0 0 .75rem; }
   .slide h1, .slide .h1 { font-size:clamp(2.1rem,5vw,3.3rem); line-height:1.06; letter-spacing:-.025em; margin:0 0 1rem; font-weight:800; }
   .slide p.sub { color:#C5CDE6; font-size:1.15rem; margin:0 0 1.75rem; max-width:34rem; }
-  .btn { display:inline-block; padding:.85rem 1.35rem; border-radius:10px; text-decoration:none; font-weight:700; }
-  .btn.sun { background:var(--sun); color:var(--night); }
-  .btn.ghost { border:2px solid #4A5A93; color:#fff; margin-left:.5rem; }
+  .btn { display:inline-block; white-space:nowrap; padding:.85rem 1.2rem; border-radius:10px; text-decoration:none; font-weight:700; }
+  .btn.sun { background:var(--sun); color:var(--night); border:2px solid var(--sun); }
+  .btn.ghost { border:2px solid #4A5A93; color:#fff; }
   .ctrl { position:absolute; bottom:1.4rem; left:1.25rem; display:flex; gap:.6rem; align-items:center; }
   .ctrl button { font:inherit; font-size:1.2rem; background:none; border:1px solid #4A5A93; color:#fff; width:38px; height:38px; border-radius:50%; cursor:pointer; }
   .dots { display:flex; gap:.4rem; margin-left:.4rem; }
@@ -168,7 +173,8 @@
   /* ─── Планшет и телефон: перестройка в одну-две колонки ─── */
   @media (max-width:900px) {
     .menu { display:none; }
-    .slide { grid-template-columns:1fr; gap:2rem; padding:2.5rem 0 5rem; }
+    .acts { flex-wrap:wrap; }
+    .slide { align-content:start; grid-template-columns:1fr; gap:2rem; padding:2.5rem 0 5rem; }
     .area, .about .wrap { grid-template-columns:1fr; gap:2rem; }
     .area:nth-child(even) .txt { order:0; }
     .flow, .packs { grid-template-columns:1fr 1fr; }
@@ -178,7 +184,6 @@
   @media (max-width:600px) {
     .top .logo span { display:none; }
     .flow, .packs { grid-template-columns:1fr; }
-    .btn.ghost { margin:.6rem 0 0; }
     .cta { padding:2rem 1.4rem; }
     .pipe { grid-template-columns:1fr 1fr; }
     .vis { padding:1rem; }
@@ -208,11 +213,11 @@
   <div class="wrap slides">
     <!-- Слайд 1: автоматизация, карточка «Обычная неделя в офисе» -->
     <div class="slide on">
-      <div>
+      <div class="stxt">
         <p class="kicker" data-i="k1"></p>
         <h1 data-i="h1"></h1>
         <p class="sub" data-i="sub1"></p>
-        <a class="btn sun" href="#kontakt" data-i="cta_talk"></a><a class="btn ghost" href="#oferta" data-i="cta_offer"></a>
+        <div class="acts"><a class="btn sun" href="#kontakt" data-i="cta_talk"></a><a class="btn ghost" href="#oferta" data-i="cta_offer"></a></div>
       </div>
       <div class="panel">
         <h3 data-i="week_title"></h3>
@@ -227,11 +232,11 @@
 
     <!-- Слайд 2: HR и подбор, воронка кандидатов -->
     <div class="slide">
-      <div>
+      <div class="stxt">
         <p class="kicker" data-i="k2"></p>
         <p class="h1" data-i="h2s"></p>
         <p class="sub" data-i="sub2"></p>
-        <a class="btn sun" href="#hr" data-i="more"></a>
+        <div class="acts"><a class="btn sun" href="#hr" data-i="more"></a></div>
       </div>
       <div class="panel">
         <h3 data-i="pipe_title"></h3>
@@ -248,11 +253,11 @@
 
     <!-- Слайд 3: мост PL ↔ UA/BY, чат команды -->
     <div class="slide">
-      <div>
+      <div class="stxt">
         <p class="kicker" data-i="k3"></p>
         <p class="h1" data-i="h3s"></p>
         <p class="sub" data-i="sub3"></p>
-        <a class="btn sun" href="#most" data-i="more"></a>
+        <div class="acts"><a class="btn sun" href="#most" data-i="more"></a></div>
       </div>
       <div class="panel">
         <h3 data-i="chat_title"></h3>
@@ -554,6 +559,20 @@
   hero.addEventListener('mouseenter', function () { clearInterval(timer); });
   hero.addEventListener('mouseleave', auto);
   hero.addEventListener('focusin', function () { clearInterval(timer); });
+  // На телефоне слайды идут в одну колонку: выравниваем высоту текстовой части
+  // по самому длинному слайду, чтобы карточка под текстом не прыгала
+  function equalize() {
+    var t = document.querySelectorAll('.stxt'), m = 0;
+    t.forEach(function (e) { e.style.minHeight = ''; });
+    t.forEach(function (e) { m = Math.max(m, e.offsetHeight); });
+    t.forEach(function (e) { e.style.minHeight = m + 'px'; });
+  }
+  equalize();
+  window.addEventListener('resize', equalize);
+  window.addEventListener('load', equalize);
+  buttons.forEach(function (b) { b.addEventListener('click', equalize); });
+  if (document.fonts) document.fonts.ready.then(equalize);
+
   show(0); auto();
 })();
 </script>
